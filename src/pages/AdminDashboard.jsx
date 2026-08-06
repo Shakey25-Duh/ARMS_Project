@@ -1,301 +1,241 @@
 import { Link } from "react-router-dom";
-import Sidebar from "../components/Sidebar";
-import Navbar from "../components/Navbar";
+import DashboardLayout from "../components/DashboardLayout";
+import NotificationCard from "../components/NotificationCard";
+import SystemStatus from "../components/SystemStatus";
 
 function AdminDashboard() {
 
     return (
 
-        <>
-            <Sidebar />
+        <DashboardLayout
+            role="admin"
+            title="Admin Dashboard"
+        >
 
-            <div className="main">
+            <div className="container-fluid mt-4">
 
-                <Navbar />
+                <h2 className="mb-4">
+                    Welcome, Admin 👋
+                </h2>
 
-                <div className="container-fluid mt-4">
+                {/* Statistics */}
 
-                    <h2 className="mb-4">
-                        Welcome, Admin 👋
-                    </h2>
+                <div className="row">
 
-                    {/* Statistics */}
+                    <div className="col-md-4 mb-4">
 
-                    <div className="row">
+                        <Link
+                            to="/manage-teachers"
+                            className="text-decoration-none"
+                        >
 
-                        <div className="col-md-4 mb-4">
+                            <div className="card shadow top-card bg-primary text-white">
 
-                            <Link to="/manage-teachers" className="text-decoration-none">
+                                <div className="card-body text-center">
 
-                                <div className="card shadow top-card bg-primary text-white">
+                                    <h5>Total Teachers</h5>
 
-                                    <div className="card-body text-center">
+                                    <h1>20</h1>
 
-                                        <h5>Total Teachers</h5>
-
-                                        <h1>20</h1>
-
-                                        <small>Click to View</small>
-
-                                    </div>
-
-                                </div>
-
-                            </Link>
-
-                        </div>
-
-                        <div className="col-md-4 mb-4">
-
-                            <Link to="/manage-subjects" className="text-decoration-none">
-
-                                <div className="card shadow top-card bg-success text-white">
-
-                                    <div className="card-body text-center">
-
-                                        <h5>Total Subjects</h5>
-
-                                        <h1>12</h1>
-
-                                        <small>Click to View</small>
-
-                                    </div>
-
-                                </div>
-
-                            </Link>
-
-                        </div>
-
-                        <div className="col-md-4 mb-4">
-
-                            <Link to="/manage-departments" className="text-decoration-none">
-
-                                <div className="card shadow top-card bg-warning">
-
-                                    <div className="card-body text-center">
-
-                                        <h5>Departments</h5>
-
-                                        <h1>5</h1>
-
-                                        <small>Click to View</small>
-
-                                    </div>
-
-                                </div>
-
-                            </Link>
-
-                        </div>
-
-                    </div>
-
-                    <div className="row">
-
-                        <div className="col-md-4 mb-4">
-
-                            <Link to="/students" className="text-decoration-none">
-
-                                <div className="card shadow top-card bg-info text-white">
-
-                                    <div className="card-body text-center">
-
-                                        <h5>Total Students</h5>
-
-                                        <h1>120</h1>
-
-                                        <small>Click to View</small>
-
-                                    </div>
-
-                                </div>
-
-                            </Link>
-
-                        </div>
-
-                        <div className="col-md-4 mb-4">
-
-                            <Link to="/reports" className="text-decoration-none">
-
-                                <div className="card shadow top-card bg-danger text-white">
-
-                                    <div className="card-body text-center">
-
-                                        <h5>Pending Results</h5>
-
-                                        <h1>18</h1>
-
-                                        <small>Click to View</small>
-
-                                    </div>
-
-                                </div>
-
-                            </Link>
-
-                        </div>
-
-                        <div className="col-md-4 mb-4">
-
-                            <Link to="/reports" className="text-decoration-none">
-
-                                <div className="card shadow top-card bg-dark text-white">
-
-                                    <div className="card-body text-center">
-
-                                        <h5>Published Results</h5>
-
-                                        <h1>102</h1>
-
-                                        <small>Click to View</small>
-
-                                    </div>
-
-                                </div>
-
-                            </Link>
-
-                        </div>
-
-                    </div>
-
-                    {/* Notifications */}
-
-                    <div className="row">
-
-                        <div className="col-md-6 mb-4">
-
-                            <div className="card shadow">
-
-                                <div className="card-header bg-primary text-white">
-
-                                    <h5 className="mb-0">
-
-                                        Recent Notifications
-
-                                    </h5>
-
-                                </div>
-
-                                <div className="card-body">
-
-                                    <ul className="list-group">
-
-                                        <li className="list-group-item">
-                                            ✅ Teacher Ram Sharma added successfully
-                                        </li>
-
-                                        <li className="list-group-item">
-                                            ✅ Database Management subject updated
-                                        </li>
-
-                                        <li className="list-group-item">
-                                            ✅ Department BCA created
-                                        </li>
-
-                                        <li className="list-group-item">
-                                            ✅ Semester Result Published
-                                        </li>
-
-                                    </ul>
+                                    <small>Click to View</small>
 
                                 </div>
 
                             </div>
 
-                        </div>
+                        </Link>
 
-                        <div className="col-md-6 mb-4">
+                    </div>
 
-                            <div className="card shadow">
+                    <div className="col-md-4 mb-4">
 
-                                <div className="card-header bg-success text-white">
+                        <Link
+                            to="/manage-subjects"
+                            className="text-decoration-none"
+                        >
 
-                                    <h5 className="mb-0">
+                            <div className="card shadow top-card bg-success text-white">
 
-                                        System Status
+                                <div className="card-body text-center">
 
-                                    </h5>
+                                    <h5>Total Subjects</h5>
 
-                                </div>
+                                    <h1>12</h1>
 
-                                <div className="card-body">
-
-                                    <table className="table">
-
-                                        <tbody>
-
-                                            <tr>
-
-                                                <th>Database</th>
-
-                                                <td className="text-success">
-
-                                                    🟢 Connected
-
-                                                </td>
-
-                                            </tr>
-
-                                            <tr>
-
-                                                <th>Server</th>
-
-                                                <td className="text-success">
-
-                                                    🟢 Running
-
-                                                </td>
-
-                                            </tr>
-
-                                            <tr>
-
-                                                <th>Academic Year</th>
-
-                                                <td>
-
-                                                    2026
-
-                                                </td>
-
-                                            </tr>
-
-                                            <tr>
-
-                                                <th>Semester</th>
-
-                                                <td>
-
-                                                    Spring
-
-                                                </td>
-
-                                            </tr>
-
-                                            <tr>
-
-                                                <th>Version</th>
-
-                                                <td>
-
-                                                    ARMS v1.0
-
-                                                </td>
-
-                                            </tr>
-
-                                        </tbody>
-
-                                    </table>
+                                    <small>Click to View</small>
 
                                 </div>
 
                             </div>
 
-                        </div>
+                        </Link>
+
+                    </div>
+
+                    <div className="col-md-4 mb-4">
+
+                        <Link
+                            to="/manage-departments"
+                            className="text-decoration-none"
+                        >
+
+                            <div className="card shadow top-card bg-warning">
+
+                                <div className="card-body text-center">
+
+                                    <h5>Departments</h5>
+
+                                    <h1>5</h1>
+
+                                    <small>Click to View</small>
+
+                                </div>
+
+                            </div>
+
+                        </Link>
+
+                    </div>
+
+                </div>
+
+                <div className="row">
+
+                    <div className="col-md-4 mb-4">
+
+                        <Link
+                            to="/students"
+                            className="text-decoration-none"
+                        >
+
+                            <div className="card shadow top-card bg-info text-white">
+
+                                <div className="card-body text-center">
+
+                                    <h5>Total Students</h5>
+
+                                    <h1>120</h1>
+
+                                    <small>Click to View</small>
+
+                                </div>
+
+                            </div>
+
+                        </Link>
+
+                    </div>
+
+                    <div className="col-md-4 mb-4">
+
+                        <Link
+                            to="/reports"
+                            className="text-decoration-none"
+                        >
+
+                            <div className="card shadow top-card bg-danger text-white">
+
+                                <div className="card-body text-center">
+
+                                    <h5>Pending Results</h5>
+
+                                    <h1>18</h1>
+
+                                    <small>Click to View</small>
+
+                                </div>
+
+                            </div>
+
+                        </Link>
+
+                    </div>
+
+                    <div className="col-md-4 mb-4">
+
+                        <Link
+                            to="/reports"
+                            className="text-decoration-none"
+                        >
+
+                            <div className="card shadow top-card bg-dark text-white">
+
+                                <div className="card-body text-center">
+
+                                    <h5>Published Results</h5>
+
+                                    <h1>102</h1>
+
+                                    <small>Click to View</small>
+
+                                </div>
+
+                            </div>
+
+                        </Link>
+
+                    </div>
+
+                </div>
+
+                {/* Notification & Status */}
+
+                <div className="row">
+
+                    <div className="col-md-6 mb-4">
+
+                        <NotificationCard
+
+                            notifications={[
+
+                                "✅ Teacher Ram Sharma added successfully",
+
+                                "✅ Database Management Subject Updated",
+
+                                "✅ Department BCA Created",
+
+                                "✅ Semester Result Published"
+
+                            ]}
+
+                        />
+
+                    </div>
+
+                    <div className="col-md-6 mb-4">
+
+                        <SystemStatus
+
+                            status={[
+
+                                {
+                                    title: "Database",
+                                    value: "🟢 Connected"
+                                },
+
+                                {
+                                    title: "Server",
+                                    value: "🟢 Running"
+                                },
+
+                                {
+                                    title: "Academic Year",
+                                    value: "2026"
+                                },
+
+                                {
+                                    title: "Semester",
+                                    value: "Spring"
+                                },
+
+                                {
+                                    title: "Version",
+                                    value: "ARMS v1.0"
+                                }
+
+                            ]}
+
+                        />
 
                     </div>
 
@@ -303,7 +243,7 @@ function AdminDashboard() {
 
             </div>
 
-        </>
+        </DashboardLayout>
 
     );
 

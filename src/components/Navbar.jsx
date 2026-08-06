@@ -1,17 +1,25 @@
-function Navbar() {
-  return (
+import Logout from "./Logout";
 
-    <div className="navbar-custom">
+function Navbar({ title = "Dashboard" }) {
 
-      <div className="d-flex justify-content-between align-items-center">
+    return (
 
-        <h3>Admin Dashboard</h3>
+        <div className="app-navbar">
 
-      </div>
+            <div className="container-fluid d-flex justify-content-between align-items-center">
 
-    </div>
+                <h3 className="mb-0">
+                    {title}
+                </h3>
 
-  );
+                <Logout />
+
+            </div>
+
+        </div>
+
+    );
+
 }
 
 export default Navbar;

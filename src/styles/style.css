@@ -11,7 +11,7 @@ body{
 
 .login-bg{
     min-height:100vh;
-    background:red !important;
+    background:rgb(158, 70, 230) !important;
 }
 
 .login-card{
@@ -82,7 +82,7 @@ body{
 
 /* ================= NAVBAR ================= */
 
-.navbar{
+.app-navbar{
     position:fixed;
     top:0;
     left:250px;
@@ -99,7 +99,6 @@ body{
 
     z-index:1000;
 }
-
 /* ================= MAIN CONTENT ================= */
 
 .main{

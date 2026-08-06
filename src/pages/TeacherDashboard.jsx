@@ -1,77 +1,285 @@
-import Sidebar from "../components/Sidebar";
-import Navbar from "../components/Navbar";
+import DashboardLayout from "../components/DashboardLayout";
 import DashboardCard from "../components/DashboardCard";
-import FeatureCard from "../components/FeatureCard";
+import NotificationCard from "../components/NotificationCard";
+import SystemStatus from "../components/SystemStatus";
 
 function TeacherDashboard() {
 
     return (
 
-        <div className="container-fluid">
+        <DashboardLayout
+            role="teacher"
+            title="Teacher Dashboard"
+        >
 
-            <div className="row">
+            <div className="container-fluid mt-4">
 
-                <Sidebar />
+                <h2 className="mb-4">
 
-                <div className="col-md-9 p-4">
+                    Welcome, Ram Sharma 👋
 
-                    <Navbar />
+                </h2>
 
-                    <div className="row mt-4">
+                {/* Dashboard Cards */}
 
-                        <DashboardCard
-                            title="Total Students"
-                            value="120"
-                        />
+                <div className="row">
 
-                        <DashboardCard
-                            title="Subjects"
-                            value="6"
-                        />
+                    <DashboardCard
+                        title="Total Students"
+                        value="120"
+                        color="primary"
+                    />
 
-                        <DashboardCard
-                            title="Pending Results"
-                            value="18"
-                            color="text-danger"
+                    <DashboardCard
+                        title="My Subjects"
+                        value="4"
+                        color="success"
+                    />
+
+                    <DashboardCard
+                        title="Marks Submitted"
+                        value="80"
+                        color="warning"
+                    />
+
+                    <DashboardCard
+                        title="Pending Marks"
+                        value="20"
+                        color="danger"
+                    />
+
+                </div>
+
+                {/* Notifications & Teacher Status */}
+
+                <div className="row">
+
+                    <div className="col-md-6 mb-4">
+
+                        <NotificationCard
+
+                            notifications={[
+
+                                "📘 PLD marks submitted successfully",
+
+                                "📘 Java class scheduled tomorrow",
+
+                                "📘 New student added to Semester 2",
+
+                                "📘 DBMS internal marks pending"
+
+                            ]}
+
                         />
 
                     </div>
 
-                    <h3 className="mt-5">
+                    <div className="col-md-6 mb-4">
 
-                        Teacher Functions
+                        <SystemStatus
 
-                    </h3>
+                            status={[
 
-                    <div className="row mt-3">
+                                {
+                                    title: "Teacher",
+                                    value: "Ram Sharma"
+                                },
 
-                        <FeatureCard
-                            title="👨‍🎓 Add Student"
-                            description="Register new student."
-                            button="Open"
-                            btnClass="btn btn-primary"
+                                {
+                                    title: "Department",
+                                    value: "BCA"
+                                },
+
+                                {
+                                    title: "Subjects",
+                                    value: "4"
+                                },
+
+                                {
+                                    title: "Semester",
+                                    value: "1st, 2nd, 3rd, 4th"
+                                },
+
+                                {
+                                    title: "Status",
+                                    value: "🟢 Active"
+                                }
+
+                            ]}
+
                         />
 
-                        <FeatureCard
-                            title="📚 Insert Subject"
-                            description="Insert Semester Subjects."
-                            button="Open"
-                            btnClass="btn btn-success"
-                        />
+                    </div>
 
-                        <FeatureCard
-                            title="📝 Update Marks"
-                            description="Update Student Marks."
-                            button="Open"
-                            btnClass="btn btn-warning"
-                        />
+                </div>
 
-                        <FeatureCard
-                            title="📄 Generate Marksheet"
-                            description="Generate Student Result."
-                            button="Open"
-                            btnClass="btn btn-danger"
-                        />
+                {/* My Subjects */}
+
+                <div className="card shadow mb-4">
+
+                    <div className="card-header bg-success text-white">
+
+                        <h5 className="mb-0">
+
+                            My Subjects
+
+                        </h5>
+
+                    </div>
+
+                    <div className="card-body">
+
+                        <table className="table table-bordered table-hover">
+
+                            <thead className="table-light">
+
+                                <tr>
+
+                                    <th>Semester</th>
+
+                                    <th>Subject Code</th>
+
+                                    <th>Subject Name</th>
+
+                                    <th>Department</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+
+                                    <td>1st</td>
+
+                                    <td>BCA101</td>
+
+                                    <td>Programming Logic & Design</td>
+
+                                    <td>BCA</td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <td>2nd</td>
+
+                                    <td>BCA201</td>
+
+                                    <td>C Programming</td>
+
+                                    <td>BCA</td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <td>3rd</td>
+
+                                    <td>BCA301</td>
+
+                                    <td>Java Programming</td>
+
+                                    <td>BCA</td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <td>4th</td>
+
+                                    <td>BCA401</td>
+
+                                    <td>Database Management System</td>
+
+                                    <td>BCA</td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+                {/* Recent Students */}
+
+                <div className="card shadow">
+
+                    <div className="card-header bg-primary text-white">
+
+                        <h5 className="mb-0">
+
+                            Recently Added Students
+
+                        </h5>
+
+                    </div>
+
+                    <div className="card-body">
+
+                        <table className="table table-striped">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>Roll</th>
+
+                                    <th>Name</th>
+
+                                    <th>Semester</th>
+
+                                    <th>Department</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+
+                                    <td>001</td>
+
+                                    <td>Hari Sharma</td>
+
+                                    <td>1st</td>
+
+                                    <td>BCA</td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <td>002</td>
+
+                                    <td>Ram Karki</td>
+
+                                    <td>2nd</td>
+
+                                    <td>BCA</td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <td>003</td>
+
+                                    <td>Sita Nepal</td>
+
+                                    <td>3rd</td>
+
+                                    <td>BCA</td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
 
                     </div>
 
@@ -79,7 +287,7 @@ function TeacherDashboard() {
 
             </div>
 
-        </div>
+        </DashboardLayout>
 
     );
 

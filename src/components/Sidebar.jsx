@@ -1,60 +1,129 @@
 import { Link } from "react-router-dom";
-import Logout from "./Logout";
 
-function Sidebar() {
-  return (
-    <div className="sidebar">
+function Sidebar({ role = "admin" }) {
 
-      <h3>ARMS Admin</h3>
+    return (
 
-      <Link to="/admin-dashboard">🏠 Dashboard</Link>
+        <div className="sidebar">
 
-      <hr />
+            <h3 className="text-center mb-4">
 
-      <h6>Teacher</h6>
+                {role === "admin" ? "ARMS Admin" : "ARMS Teacher"}
 
-      <Link to="/add-teacher">➕ Add Teacher</Link>
+            </h3>
 
-      <Link to="/manage-teachers">
-        👨‍🏫 Manage Teachers
-      </Link>
+            {
 
-      <hr />
+                role === "admin" ? (
 
-      <h6>Subject</h6>
+                    <>
 
-      <Link to="/add-subject">
-        📘 Add Subject
-      </Link>
+                        <Link to="/admin-dashboard">
+                            🏠 Dashboard
+                        </Link>
 
-      <Link to="/manage-subjects">
-        📚 Manage Subjects
-      </Link>
+                        <hr />
 
-      <hr />
+                        <h6>Teacher</h6>
 
-      <h6>Department</h6>
+                        <Link to="/add-teacher">
+                            ➕ Add Teacher
+                        </Link>
 
-      <Link to="/add-department">
-        🏢 Add Department
-      </Link>
+                        <Link to="/manage-teachers">
+                            👨‍🏫 Manage Teachers
+                        </Link>
 
-      <Link to="/manage-departments">
-        🏫 Manage Departments
-      </Link>
+                        <hr />
 
-      <hr />
+                        <h6>Subject</h6>
 
-      <Link to="/reports">
-        📊 Reports
-      </Link>
+                        <Link to="/add-subject">
+                            📘 Add Subject
+                        </Link>
 
-      <hr />
+                        <Link to="/manage-subjects">
+                            📚 Manage Subjects
+                        </Link>
 
-      <Logout />
+                        <hr />
 
-    </div>
-  );
+                        <h6>Department</h6>
+
+                        <Link to="/add-department">
+                            🏢 Add Department
+                        </Link>
+
+                        <Link to="/manage-departments">
+                            🏫 Manage Departments
+                        </Link>
+
+                        <hr />
+
+                        <Link to="/reports">
+                            📊 Reports
+                        </Link>
+
+                    </>
+
+                ) : (
+
+                    <>
+
+                        <Link to="/teacher-dashboard">
+                            🏠 Dashboard
+                        </Link>
+
+                        <hr />
+
+                        <h6>Subjects</h6>
+
+                        <Link to="/my-subjects">
+                            📚 My Subjects
+                        </Link>
+
+                        <hr />
+
+                        <h6>Students</h6>
+
+                        <Link to="/add-student">
+                            ➕ Add Student
+                        </Link>
+
+                        <Link to="/manage-students">
+                            👨‍🎓 Manage Students
+                        </Link>
+
+                        <hr />
+
+                        <h6>Marks</h6>
+
+                        <Link to="/add-marks">
+                            📝 Add Marks
+                        </Link>
+
+                        <Link to="/manage-marks">
+                            📑 Manage Marks
+                        </Link>
+
+                        <hr />
+
+                        <h6>Profile</h6>
+
+                        <Link to="/teacher-profile">
+                            👤 My Profile
+                        </Link>
+
+                    </>
+
+                )
+
+            }
+
+        </div>
+
+    );
+
 }
 
 export default Sidebar;
