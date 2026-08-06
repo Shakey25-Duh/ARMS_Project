@@ -2,8 +2,8 @@ import { Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Home";
 
-// Admin
-import AdminLogin from "./pages/AdminLogin";
+/* ================= ADMIN ================= */
+
 import AdminDashboard from "./pages/AdminDashboard";
 
 import AddTeacher from "./pages/AddTeacher";
@@ -17,66 +17,156 @@ import ManageDepartments from "./pages/ManageDepartments";
 
 import Reports from "./pages/Reports";
 
-// Teacher
-import TeacherLogin from "./pages/TeacherLogin";
+/* ================= TEACHER ================= */
+
 import TeacherDashboard from "./pages/TeacherDashboard";
+
 import MySubjects from "./pages/MySubjects";
+
 import AddStudent from "./pages/AddStudent";
 import ManageStudents from "./pages/ManageStudents";
+
 import AddMarks from "./pages/AddMarks";
 import ManageMarks from "./pages/ManageMarks";
+
 import TeacherProfile from "./pages/TeacherProfile";
+
+/* ================= STUDENT ================= */
+
+import StudentDashboard from "./pages/StudentDashboard";
+import StudentProfile from "./pages/StudentProfile";
+import StudentSubjects from "./pages/StudentSubjects";
+import StudentMarks from "./pages/StudentMarks";
+import StudentResult from "./pages/StudentResult";
+import StudentNotices from "./pages/StudentNotices";
 
 function App() {
 
-  return (
+    return (
 
-    <Routes>
+        <Routes>
 
-      {/* Landing Page */}
-      <Route path="/" element={<Home />} />
+            {/* ================= HOME / LOGIN ================= */}
 
-      {/* ================= ADMIN ================= */}
+            <Route
+                path="/"
+                element={<Home />}
+            />
 
-      <Route path="/admin-login" element={<AdminLogin />} />
+            {/* ================= ADMIN ================= */}
 
-      <Route path="/admin-dashboard" element={<AdminDashboard />} />
+            <Route
+                path="/admin-dashboard"
+                element={<AdminDashboard />}
+            />
 
-      <Route path="/add-teacher" element={<AddTeacher />} />
+            <Route
+                path="/add-teacher"
+                element={<AddTeacher />}
+            />
 
-      <Route path="/manage-teachers" element={<ManageTeachers />} />
+            <Route
+                path="/manage-teachers"
+                element={<ManageTeachers />}
+            />
 
-      <Route path="/add-subject" element={<AddSubject />} />
+            <Route
+                path="/add-subject"
+                element={<AddSubject />}
+            />
 
-      <Route path="/manage-subjects" element={<ManageSubjects />} />
+            <Route
+                path="/manage-subjects"
+                element={<ManageSubjects />}
+            />
 
-      <Route path="/add-department" element={<AddDepartment />} />
+            <Route
+                path="/add-department"
+                element={<AddDepartment />}
+            />
 
-      <Route path="/manage-departments" element={<ManageDepartments />} />
+            <Route
+                path="/manage-departments"
+                element={<ManageDepartments />}
+            />
 
-      <Route path="/reports" element={<Reports />} />
+            <Route
+                path="/reports"
+                element={<Reports />}
+            />
 
-      {/* ================= TEACHER ================= */}
+            {/* ================= TEACHER ================= */}
 
-      <Route path="/teacher-login" element={<TeacherLogin />} />
+            <Route
+                path="/teacher-dashboard"
+                element={<TeacherDashboard />}
+            />
 
-      <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
+            <Route
+                path="/my-subjects"
+                element={<MySubjects />}
+            />
 
-      <Route path="/my-subjects" element={<MySubjects />} />
+            <Route
+                path="/add-student"
+                element={<AddStudent />}
+            />
 
-      <Route path="/add-student" element={<AddStudent />} />
+            <Route
+                path="/manage-students"
+                element={<ManageStudents />}
+            />
 
-      <Route path="/manage-students" element={<ManageStudents />} />
+            <Route
+                path="/add-marks"
+                element={<AddMarks />}
+            />
 
-      <Route path="/add-marks" element={<AddMarks />} />
+            <Route
+                path="/manage-marks"
+                element={<ManageMarks />}
+            />
 
-      <Route path="/manage-marks" element={<ManageMarks />} />
+            <Route
+                path="/teacher-profile"
+                element={<TeacherProfile />}
+            />
 
-      <Route path="/teacher-profile" element={<TeacherProfile />} />
+            {/* ================= STUDENT ================= */}
 
-    </Routes>
+            <Route
+                path="/student-dashboard"
+                element={<StudentDashboard />}
+            />
 
-  );
+            <Route
+                path="/student-profile"
+                element={<StudentProfile />}
+            />
+
+            <Route
+                path="/student-subjects"
+                element={<StudentSubjects />}
+            />
+
+            <Route
+                path="/student-marks"
+                element={<StudentMarks />}
+            />
+
+            <Route
+                path="/student-result"
+                element={<StudentResult />}
+            />
+
+            <Route
+                path="/student-notices"
+                element={<StudentNotices />}
+            />
+
+        </Routes>
+
+    );
 
 }
 

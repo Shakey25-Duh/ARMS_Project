@@ -8,13 +8,20 @@ function Sidebar({ role = "admin" }) {
 
             <h3 className="text-center mb-4">
 
-                {role === "admin" ? "ARMS Admin" : "ARMS Teacher"}
+                {
+                    role === "admin"
+                        ? "ARMS Admin"
+                        : role === "teacher"
+                            ? "ARMS Teacher"
+                            : "ARMS Student"
+                }
 
             </h3>
 
-            {
+            {/* ================= ADMIN ================= */}
 
-                role === "admin" ? (
+            {
+                role === "admin" && (
 
                     <>
 
@@ -66,7 +73,13 @@ function Sidebar({ role = "admin" }) {
 
                     </>
 
-                ) : (
+                )
+            }
+
+            {/* ================= TEACHER ================= */}
+
+            {
+                role === "teacher" && (
 
                     <>
 
@@ -117,7 +130,52 @@ function Sidebar({ role = "admin" }) {
                     </>
 
                 )
+            }
 
+            {/* ================= STUDENT ================= */}
+
+            {
+                role === "student" && (
+
+                    <>
+
+                        <Link to="/student-dashboard">
+                            🏠 Dashboard
+                        </Link>
+
+                        <hr />
+
+                        <Link to="/student-profile">
+                            👤 My Profile
+                        </Link>
+
+                        <hr />
+
+                        <Link to="/student-subjects">
+                            📚 My Subjects
+                        </Link>
+
+                        <hr />
+
+                        <Link to="/student-marks">
+                            📝 My Marks
+                        </Link>
+
+                        <hr />
+
+                        <Link to="/student-result">
+                            📊 Result
+                        </Link>
+
+                        <hr />
+
+                        <Link to="/student-notices">
+                            📢 Notices
+                        </Link>
+
+                    </>
+
+                )
             }
 
         </div>
