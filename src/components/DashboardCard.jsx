@@ -1,24 +1,24 @@
 function DashboardCard({ title, value, color }) {
 
-  return (
+    return (
 
-    <div className="col-md-3 mb-4">
+        <div className="col-md-6 mb-4">
 
-      <div className={`card shadow text-white bg-${color}`}>
+            <div className={`card shadow text-white bg-${color}`}>
 
-        <div className="card-body text-center">
+                <div className="card-body text-center">
 
-          <h5>{title}</h5>
+                    <h5>{title}</h5>
 
-          <h1>{value}</h1>
+                    <h1>{value}</h1>
+
+                </div>
+
+            </div>
 
         </div>
 
-      </div>
-
-    </div>
-
-  );
+    );
 
 }
 

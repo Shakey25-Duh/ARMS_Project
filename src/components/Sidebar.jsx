@@ -169,9 +169,7 @@ function Sidebar({ role = "admin" }) {
 
                         <hr />
 
-                        <Link to="/student-notices">
-                            📢 Notices
-                        </Link>
+                       
 
                     </>
 

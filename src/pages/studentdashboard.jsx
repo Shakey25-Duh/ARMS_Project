@@ -1,7 +1,5 @@
 import DashboardLayout from "../components/DashboardLayout";
 import DashboardCard from "../components/DashboardCard";
-import NotificationCard from "../components/NotificationCard";
-import SystemStatus from "../components/SystemStatus";
 
 function StudentDashboard() {
 
@@ -15,9 +13,7 @@ function StudentDashboard() {
             <div className="container-fluid mt-4">
 
                 <h2 className="mb-4">
-
                     Welcome, Hari Sharma 👋
-
                 </h2>
 
                 {/* Dashboard Cards */}
@@ -25,95 +21,16 @@ function StudentDashboard() {
                 <div className="row">
 
                     <DashboardCard
-                        title="My Subjects"
-                        value="5"
-                        color="primary"
-                        link="/student-subjects"
-                    />
-
-                    <DashboardCard
                         title="Published Marks"
                         value="5"
                         color="success"
-                        link="/student-marks"
                     />
 
                     <DashboardCard
                         title="Current GPA"
                         value="3.72"
                         color="warning"
-                        link="/student-result"
                     />
-
-                    <DashboardCard
-                        title="Notices"
-                        value="4"
-                        color="danger"
-                        link="/student-notices"
-                    />
-
-                </div>
-
-                {/* Notifications & Profile */}
-
-                <div className="row">
-
-                    <div className="col-md-6 mb-4">
-
-                        <NotificationCard
-
-                            notifications={[
-
-                                "📢 Internal Exam starts from 15th August",
-
-                                "📢 Assignment submission on Friday",
-
-                                "📢 Holiday on Janai Purnima",
-
-                                "📢 Semester Result Published"
-
-                            ]}
-
-                        />
-
-                    </div>
-
-                    <div className="col-md-6 mb-4">
-
-                        <SystemStatus
-
-                            status={[
-
-                                {
-                                    title: "Student",
-                                    value: "Hari Sharma"
-                                },
-
-                                {
-                                    title: "Roll No",
-                                    value: "BCA001"
-                                },
-
-                                {
-                                    title: "Department",
-                                    value: "BCA"
-                                },
-
-                                {
-                                    title: "Semester",
-                                    value: "4th Semester"
-                                },
-
-                                {
-                                    title: "Status",
-                                    value: "🟢 Active"
-                                }
-
-                            ]}
-
-                        />
-
-                    </div>
 
                 </div>
 
@@ -124,9 +41,7 @@ function StudentDashboard() {
                     <div className="card-header bg-primary text-white">
 
                         <h5 className="mb-0">
-
                             Current Semester Subjects
-
                         </h5>
 
                     </div>
@@ -140,9 +55,7 @@ function StudentDashboard() {
                                 <tr>
 
                                     <th>Subject Code</th>
-
                                     <th>Subject Name</th>
-
                                     <th>Credit Hour</th>
 
                                 </tr>
@@ -154,9 +67,7 @@ function StudentDashboard() {
                                 <tr>
 
                                     <td>BCA401</td>
-
                                     <td>Database Management System</td>
-
                                     <td>3</td>
 
                                 </tr>
@@ -164,9 +75,7 @@ function StudentDashboard() {
                                 <tr>
 
                                     <td>BCA402</td>
-
                                     <td>Operating System</td>
-
                                     <td>3</td>
 
                                 </tr>
@@ -174,9 +83,7 @@ function StudentDashboard() {
                                 <tr>
 
                                     <td>BCA403</td>
-
                                     <td>Computer Graphics</td>
-
                                     <td>3</td>
 
                                 </tr>
@@ -184,9 +91,7 @@ function StudentDashboard() {
                                 <tr>
 
                                     <td>BCA404</td>
-
                                     <td>Web Technology II</td>
-
                                     <td>3</td>
 
                                 </tr>
@@ -194,86 +99,8 @@ function StudentDashboard() {
                                 <tr>
 
                                     <td>BCA405</td>
-
                                     <td>Software Engineering</td>
-
                                     <td>3</td>
-
-                                </tr>
-
-                            </tbody>
-
-                        </table>
-
-                    </div>
-
-                </div>
-
-                {/* Student Information */}
-
-                <div className="card shadow">
-
-                    <div className="card-header bg-success text-white">
-
-                        <h5 className="mb-0">
-
-                            Student Information
-
-                        </h5>
-
-                    </div>
-
-                    <div className="card-body">
-
-                        <table className="table">
-
-                            <tbody>
-
-                                <tr>
-
-                                    <th>Name</th>
-
-                                    <td>Hari Sharma</td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <th>Roll Number</th>
-
-                                    <td>BCA001</td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <th>Registration No.</th>
-
-                                    <td>PU-2081-BCA-001</td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <th>Email</th>
-
-                                    <td>hari@gmail.com</td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <th>Phone</th>
-
-                                    <td>9800000001</td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <th>Address</th>
-
-                                    <td>Kathmandu, Nepal</td>
 
                                 </tr>
 

@@ -9,30 +9,54 @@ function ManageStudents() {
             id: 1,
             fullname: "Hari Sharma",
             roll: "BCA001",
+            registration: "PU-2024-001",
+            gender: "Male",
+            dob: "2004-05-12",
             semester: "1st Semester",
+            section: "A",
+            batch: "2024",
             department: "BCA",
             email: "hari@gmail.com",
-            phone: "9800000001"
+            phone: "9800000001",
+            address: "Pokhara",
+            guardian: "Ramesh Sharma",
+            guardianContact: "9811111111"
         },
 
         {
             id: 2,
             fullname: "Ram Karki",
             roll: "BCA002",
+            registration: "PU-2024-002",
+            gender: "Male",
+            dob: "2004-07-18",
             semester: "2nd Semester",
+            section: "A",
+            batch: "2024",
             department: "BCA",
             email: "ram@gmail.com",
-            phone: "9800000002"
+            phone: "9800000002",
+            address: "Kathmandu",
+            guardian: "Hari Karki",
+            guardianContact: "9822222222"
         },
 
         {
             id: 3,
             fullname: "Sita Nepal",
             roll: "BCA003",
+            registration: "PU-2024-003",
+            gender: "Female",
+            dob: "2003-10-20",
             semester: "3rd Semester",
+            section: "B",
+            batch: "2023",
             department: "BCA",
             email: "sita@gmail.com",
-            phone: "9800000003"
+            phone: "9800000003",
+            address: "Butwal",
+            guardian: "Gita Nepal",
+            guardianContact: "9833333333"
         }
 
     ]);
@@ -59,7 +83,11 @@ function ManageStudents() {
 
             students.map(student =>
 
-                student.id === editing.id ? editing : student
+                student.id === editing.id
+
+                    ? editing
+
+                    : student
 
             )
 
@@ -89,7 +117,9 @@ function ManageStudents() {
 
         student.fullname.toLowerCase().includes(search.toLowerCase()) ||
 
-        student.roll.toLowerCase().includes(search.toLowerCase())
+        student.roll.toLowerCase().includes(search.toLowerCase()) ||
+
+        student.registration.toLowerCase().includes(search.toLowerCase())
 
     );
 
@@ -118,7 +148,7 @@ function ManageStudents() {
 
                             className="form-control mb-3"
 
-                            placeholder="Search by Name or Roll Number"
+                            placeholder="Search by Name, Roll or Registration Number"
 
                             value={search}
 
@@ -126,218 +156,359 @@ function ManageStudents() {
 
                         />
 
-                        <table className="table table-bordered table-hover">
+                        <div className="table-responsive">
 
-                            <thead className="table-dark">
+                            <table className="table table-bordered table-hover">
 
-                                <tr>
+                                <thead className="table-dark">
 
-                                    <th>ID</th>
+                                    <tr>
 
-                                    <th>Name</th>
+                                        <th>ID</th>
 
-                                    <th>Roll</th>
+                                        <th>Name</th>
 
-                                    <th>Semester</th>
+                                        <th>Roll</th>
 
-                                    <th>Department</th>
+                                        <th>Registration</th>
 
-                                    <th>Email</th>
+                                        <th>Semester</th>
 
-                                    <th>Phone</th>
+                                        <th>Section</th>
 
-                                    <th>Action</th>
+                                        <th>Batch</th>
 
-                                </tr>
+                                        <th>Department</th>
 
-                            </thead>
+                                        <th>Email</th>
 
-                            <tbody>
+                                        <th>Phone</th>
 
-                                {
+                                        <th>Action</th>
 
-                                    filteredStudents.map(student => (
+                                    </tr>
 
-                                        <tr key={student.id}>
+                                </thead>
 
-                                            <td>{student.id}</td>
+                                <tbody>
 
-                                            <td>{student.fullname}</td>
+                                    {
 
-                                            <td>{student.roll}</td>
+                                        filteredStudents.map(student => (
 
-                                            <td>{student.semester}</td>
+                                            <tr key={student.id}>
 
-                                            <td>{student.department}</td>
+                                                <td>{student.id}</td>
 
-                                            <td>{student.email}</td>
+                                                <td>{student.fullname}</td>
 
-                                            <td>{student.phone}</td>
+                                                <td>{student.roll}</td>
 
-                                            <td>
+                                                <td>{student.registration}</td>
 
-                                                <button
+                                                <td>{student.semester}</td>
 
-                                                    className="btn btn-warning btn-sm me-2"
+                                                <td>{student.section}</td>
 
-                                                    onClick={() => setEditing(student)}
+                                                <td>{student.batch}</td>
 
-                                                >
+                                                <td>{student.department}</td>
 
-                                                    Edit
+                                                <td>{student.email}</td>
 
-                                                </button>
+                                                <td>{student.phone}</td>
 
-                                                <button
+                                                <td>
 
-                                                    className="btn btn-danger btn-sm"
+                                                    <button
 
-                                                    onClick={() => deleteStudent(student.id)}
+                                                        className="btn btn-warning btn-sm me-2"
 
-                                                >
+                                                        onClick={() => setEditing(student)}
 
-                                                    Delete
+                                                    >
 
-                                                </button>
+                                                        Edit
 
-                                            </td>
+                                                    </button>
 
-                                        </tr>
+                                                    <button
 
-                                    ))
+                                                        className="btn btn-danger btn-sm"
 
-                                }
+                                                        onClick={() => deleteStudent(student.id)}
 
-                            </tbody>
+                                                    >
 
-                        </table>
+                                                        Delete
+
+                                                    </button>
+
+                                                </td>
+
+                                            </tr>
+
+                                        ))
+
+                                    }
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
 
                     </div>
 
                 </div>
 
-                {
+            {editing && (
 
-                    editing &&
+                <div className="card shadow mt-4">
 
-                    <div className="card shadow mt-4">
+                    <div className="card-header bg-primary text-white">
 
-                        <div className="card-header bg-primary text-white">
-
-                            <h4>Edit Student</h4>
-
-                        </div>
-
-                        <div className="card-body">
-
-                            <input
-
-                                className="form-control mb-3"
-
-                                name="fullname"
-
-                                value={editing.fullname}
-
-                                onChange={handleChange}
-
-                            />
-
-                            <input
-
-                                className="form-control mb-3"
-
-                                name="roll"
-
-                                value={editing.roll}
-
-                                onChange={handleChange}
-
-                            />
-
-                            <input
-
-                                className="form-control mb-3"
-
-                                name="semester"
-
-                                value={editing.semester}
-
-                                onChange={handleChange}
-
-                            />
-
-                            <input
-
-                                className="form-control mb-3"
-
-                                name="department"
-
-                                value={editing.department}
-
-                                onChange={handleChange}
-
-                            />
-
-                            <input
-
-                                className="form-control mb-3"
-
-                                name="email"
-
-                                value={editing.email}
-
-                                onChange={handleChange}
-
-                            />
-
-                            <input
-
-                                className="form-control mb-3"
-
-                                name="phone"
-
-                                value={editing.phone}
-
-                                onChange={handleChange}
-
-                            />
-
-                            <button
-
-                                className="btn btn-success me-2"
-
-                                onClick={saveStudent}
-
-                            >
-
-                                Save
-
-                            </button>
-
-                            <button
-
-                                className="btn btn-secondary"
-
-                                onClick={() => setEditing(null)}
-
-                            >
-
-                                Cancel
-
-                            </button>
-
-                        </div>
+                        <h4>Edit Student</h4>
 
                     </div>
 
-                }
+                    <div className="card-body">
 
-            </div>
+                        <div className="row">
 
-        </DashboardLayout>
+                            <div className="col-md-6 mb-3">
 
-    );
+                                <label>Full Name</label>
+
+                                <input
+                                    className="form-control"
+                                    name="fullname"
+                                    value={editing.fullname}
+                                    onChange={handleChange}
+                                />
+
+                            </div>
+
+                            <div className="col-md-6 mb-3">
+
+                                <label>Roll Number</label>
+
+                                <input
+                                    className="form-control"
+                                    name="roll"
+                                    value={editing.roll}
+                                    onChange={handleChange}
+                                />
+
+                            </div>
+
+                            <div className="col-md-6 mb-3">
+
+                                <label>Registration Number</label>
+
+                                <input
+                                    className="form-control"
+                                    name="registration"
+                                    value={editing.registration}
+                                    onChange={handleChange}
+                                />
+
+                            </div>
+
+                            <div className="col-md-6 mb-3">
+
+                                <label>Gender</label>
+
+                                <select
+                                    className="form-control"
+                                    name="gender"
+                                    value={editing.gender}
+                                    onChange={handleChange}
+                                >
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                    <option>Other</option>
+                                </select>
+
+                            </div>
+
+                            <div className="col-md-6 mb-3">
+
+                                <label>Date of Birth</label>
+
+                                <input
+                                    type="date"
+                                    className="form-control"
+                                    name="dob"
+                                    value={editing.dob}
+                                    onChange={handleChange}
+                                />
+
+                            </div>
+
+                            <div className="col-md-6 mb-3">
+
+                                <label>Semester</label>
+
+                                <select
+                                    className="form-control"
+                                    name="semester"
+                                    value={editing.semester}
+                                    onChange={handleChange}
+                                >
+                                    <option>1st Semester</option>
+                                    <option>2nd Semester</option>
+                                    <option>3rd Semester</option>
+                                    <option>4th Semester</option>
+                                    <option>5th Semester</option>
+                                    <option>6th Semester</option>
+                                    <option>7th Semester</option>
+                                    <option>8th Semester</option>
+                                </select>
+
+                            </div>
+
+                            <div className="col-md-6 mb-3">
+
+                                <label>Section</label>
+
+                                <select
+                                    className="form-control"
+                                    name="section"
+                                    value={editing.section}
+                                    onChange={handleChange}
+                                >
+                                    <option>A</option>
+                                    <option>B</option>
+                                    <option>C</option>
+                                </select>
+
+                            </div>
+
+                            <div className="col-md-6 mb-3">
+
+                                <label>Batch</label>
+
+                                <input
+                                    className="form-control"
+                                    name="batch"
+                                    value={editing.batch}
+                                    onChange={handleChange}
+                                />
+
+                            </div>
+
+                            <div className="col-md-6 mb-3">
+
+                                <label>Department</label>
+
+                                <select
+                                    className="form-control"
+                                    name="department"
+                                    value={editing.department}
+                                    onChange={handleChange}
+                                >
+                                    <option>BCA</option>
+                                    <option>BBA</option>
+                                    <option>BHM</option>
+                                    <option>BIT</option>
+                                </select>
+
+                            </div>
+
+                            <div className="col-md-6 mb-3">
+
+                                <label>Email</label>
+
+                                <input
+                                    className="form-control"
+                                    name="email"
+                                    value={editing.email}
+                                    onChange={handleChange}
+                                />
+
+                            </div>
+
+                            <div className="col-md-6 mb-3">
+
+                                <label>Phone Number</label>
+
+                                <input
+                                    className="form-control"
+                                    name="phone"
+                                    value={editing.phone}
+                                    onChange={handleChange}
+                                />
+
+                            </div>
+
+                            <div className="col-md-6 mb-3">
+
+                                <label>Address</label>
+
+                                <input
+                                    className="form-control"
+                                    name="address"
+                                    value={editing.address}
+                                    onChange={handleChange}
+                                />
+
+                            </div>
+
+                            <div className="col-md-6 mb-3">
+
+                                <label>Guardian Name</label>
+
+                                <input
+                                    className="form-control"
+                                    name="guardian"
+                                    value={editing.guardian}
+                                    onChange={handleChange}
+                                />
+
+                            </div>
+
+                            <div className="col-md-6 mb-3">
+
+                                <label>Guardian Contact</label>
+
+                                <input
+                                    className="form-control"
+                                    name="guardianContact"
+                                    value={editing.guardianContact}
+                                    onChange={handleChange}
+                                />
+
+                            </div>
+
+                        </div>
+
+                        <button
+                            className="btn btn-success me-2"
+                            onClick={saveStudent}
+                        >
+                            Save Changes
+                        </button>
+
+                        <button
+                            className="btn btn-secondary"
+                            onClick={() => setEditing(null)}
+                        >
+                            Cancel
+                        </button>
+
+                    </div>
+
+                </div>
+
+            )}
+
+        </div>
+
+    </DashboardLayout>
+
+);
 
 }
 
-export default ManageStudents;
+export default ManageStudents;                

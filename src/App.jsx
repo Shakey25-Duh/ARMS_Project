@@ -38,7 +38,7 @@ import StudentProfile from "./pages/StudentProfile";
 import StudentSubjects from "./pages/StudentSubjects";
 import StudentMarks from "./pages/StudentMarks";
 import StudentResult from "./pages/StudentResult";
-import StudentNotices from "./pages/StudentNotices";
+
 
 function App() {
 
@@ -159,10 +159,7 @@ function App() {
                 element={<StudentResult />}
             />
 
-            <Route
-                path="/student-notices"
-                element={<StudentNotices />}
-            />
+            
 
         </Routes>
 
