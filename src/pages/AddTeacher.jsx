@@ -9,7 +9,8 @@ function AddTeacher() {
         fullname: "",
         email: "",
         phone: "",
-        department: ""
+        department: "",
+        subject: ""
     });
 
     function handleChange(e) {
@@ -35,7 +36,8 @@ function AddTeacher() {
                 fullname: "",
                 email: "",
                 phone: "",
-                department: ""
+                department: "",
+                subject: ""
             });
 
         } catch (error) {
@@ -72,6 +74,8 @@ function AddTeacher() {
 
                             <form onSubmit={saveTeacher}>
 
+                                {/* Full Name */}
+
                                 <div className="mb-3">
 
                                     <label className="form-label">
@@ -88,6 +92,8 @@ function AddTeacher() {
                                     />
 
                                 </div>
+
+                                {/* Email */}
 
                                 <div className="mb-3">
 
@@ -106,6 +112,8 @@ function AddTeacher() {
 
                                 </div>
 
+                                {/* Phone */}
+
                                 <div className="mb-3">
 
                                     <label className="form-label">
@@ -122,6 +130,8 @@ function AddTeacher() {
                                     />
 
                                 </div>
+
+                                {/* Department */}
 
                                 <div className="mb-3">
 
@@ -155,6 +165,50 @@ function AddTeacher() {
 
                                         <option value="BHM">
                                             BHM
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+                                {/* Subject */}
+
+                                <div className="mb-3">
+
+                                    <label className="form-label">
+                                        Subject
+                                    </label>
+
+                                    <select
+                                        className="form-control"
+                                        name="subject"
+                                        value={teacher.subject}
+                                        onChange={handleChange}
+                                        required
+                                    >
+
+                                        <option value="">
+                                            Select Subject
+                                        </option>
+
+                                        <option value="Programming Logic & Design">
+                                            Programming Logic & Design
+                                        </option>
+
+                                        <option value="C Programming">
+                                            C Programming
+                                        </option>
+
+                                        <option value="Java Programming">
+                                            Java Programming
+                                        </option>
+
+                                        <option value="Database Management System">
+                                            Database Management System
+                                        </option>
+
+                                        <option value="Web Technology">
+                                            Web Technology
                                         </option>
 
                                     </select>

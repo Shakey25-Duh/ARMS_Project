@@ -184,60 +184,11 @@ function AdminDashboard() {
 
                     <div className="col-md-6 mb-4">
 
-                        <NotificationCard
-
-                            notifications={[
-
-                                "✅ Teacher Ram Sharma added successfully",
-
-                                "✅ Database Management Subject Updated",
-
-                                "✅ Department BCA Created",
-
-                                "✅ Semester Result Published"
-
-                            ]}
-
-                        />
+                        
 
                     </div>
 
-                    <div className="col-md-6 mb-4">
-
-                        <SystemStatus
-
-                            status={[
-
-                                {
-                                    title: "Database",
-                                    value: "🟢 Connected"
-                                },
-
-                                {
-                                    title: "Server",
-                                    value: "🟢 Running"
-                                },
-
-                                {
-                                    title: "Academic Year",
-                                    value: "2026"
-                                },
-
-                                {
-                                    title: "Semester",
-                                    value: "Spring"
-                                },
-
-                                {
-                                    title: "Version",
-                                    value: "ARMS v1.0"
-                                }
-
-                            ]}
-
-                        />
-
-                    </div>
+                    
 
                 </div>
 

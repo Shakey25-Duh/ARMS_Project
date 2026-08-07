@@ -110,6 +110,7 @@ function ManageTeachers() {
                                         <th>Email</th>
                                         <th>Phone</th>
                                         <th>Department</th>
+                                        <th>Subject</th>
                                         <th>Action</th>
 
                                     </tr>
@@ -131,6 +132,8 @@ function ManageTeachers() {
                                             <td>{teacher.phone}</td>
 
                                             <td>{teacher.department}</td>
+
+                                            <td>{teacher.subject}</td>
 
                                             <td>
 
@@ -232,6 +235,45 @@ function ManageTeachers() {
                                         <option>BCA</option>
                                         <option>BBA</option>
                                         <option>BHM</option>
+
+                                    </select>
+
+                                </div>
+
+                                <div className="mb-3">
+
+                                    <label>Subject</label>
+
+                                    <select
+                                        className="form-control"
+                                        name="subject"
+                                        value={editingTeacher.subject || ""}
+                                        onChange={handleChange}
+                                    >
+
+                                        <option value="">
+                                            Select Subject
+                                        </option>
+
+                                        <option value="Programming Logic & Design">
+                                            Programming Logic & Design
+                                        </option>
+
+                                        <option value="C Programming">
+                                            C Programming
+                                        </option>
+
+                                        <option value="Java Programming">
+                                            Java Programming
+                                        </option>
+
+                                        <option value="Database Management System">
+                                            Database Management System
+                                        </option>
+
+                                        <option value="Web Technology">
+                                            Web Technology
+                                        </option>
 
                                     </select>
 

@@ -7,9 +7,7 @@ function AddSubject() {
 
     const [subject, setSubject] = useState({
         code: "",
-        name: "",
-        semester: "",
-        department: ""
+        name: ""
     });
 
     function handleChange(e) {
@@ -33,9 +31,7 @@ function AddSubject() {
 
             setSubject({
                 code: "",
-                name: "",
-                semester: "",
-                department: ""
+                name: ""
             });
 
         } catch (error) {
@@ -51,7 +47,6 @@ function AddSubject() {
     return (
 
         <>
-
             <Sidebar />
 
             <div className="main">
@@ -62,7 +57,7 @@ function AddSubject() {
 
                     <div className="card shadow">
 
-                        <div className="card-header bg-primary text-white">
+                        <div className="card-header bg-success text-white">
 
                             <h3>Add Subject</h3>
 
@@ -84,6 +79,7 @@ function AddSubject() {
                                         name="code"
                                         value={subject.code}
                                         onChange={handleChange}
+                                        placeholder="BCA401"
                                         required
                                     />
 
@@ -101,65 +97,9 @@ function AddSubject() {
                                         name="name"
                                         value={subject.name}
                                         onChange={handleChange}
+                                        placeholder="Database Management System"
                                         required
                                     />
-
-                                </div>
-
-                                <div className="mb-3">
-
-                                    <label className="form-label">
-                                        Semester
-                                    </label>
-
-                                    <select
-                                        className="form-control"
-                                        name="semester"
-                                        value={subject.semester}
-                                        onChange={handleChange}
-                                        required
-                                    >
-
-                                        <option value="">
-                                            Select Semester
-                                        </option>
-
-                                        <option value="1st">1st</option>
-                                        <option value="2nd">2nd</option>
-                                        <option value="3rd">3rd</option>
-                                        <option value="4th">4th</option>
-                                        <option value="5th">5th</option>
-                                        <option value="6th">6th</option>
-                                        <option value="7th">7th</option>
-                                        <option value="8th">8th</option>
-
-                                    </select>
-
-                                </div>
-
-                                <div className="mb-3">
-
-                                    <label className="form-label">
-                                        Department
-                                    </label>
-
-                                    <select
-                                        className="form-control"
-                                        name="department"
-                                        value={subject.department}
-                                        onChange={handleChange}
-                                        required
-                                    >
-
-                                        <option value="">
-                                            Select Department
-                                        </option>
-
-                                        <option value="BCA">BCA</option>
-                                        <option value="BBA">BBA</option>
-                                        <option value="BHM">BHM</option>
-
-                                    </select>
 
                                 </div>
 

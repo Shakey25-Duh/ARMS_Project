@@ -45,7 +45,19 @@ function ManageSubjects() {
 
     const saveChanges = () => {
 
-        alert("Update API will be added later.");
+        setSubjects(
+
+            subjects.map((subject) =>
+
+                subject.id === editingSubject.id
+                    ? editingSubject
+                    : subject
+
+            )
+
+        );
+
+        alert("Subject Updated Successfully ✅");
 
         setEditingSubject(null);
 
@@ -53,7 +65,15 @@ function ManageSubjects() {
 
     const deleteSubject = (id) => {
 
-        alert("Delete API will be added later.");
+        if (window.confirm("Delete this subject?")) {
+
+            setSubjects(
+
+                subjects.filter((subject) => subject.id !== id)
+
+            );
+
+        }
 
     };
 
@@ -86,10 +106,11 @@ function ManageSubjects() {
                                     <tr>
 
                                         <th>ID</th>
-                                        <th>Code</th>
-                                        <th>Name</th>
-                                        <th>Semester</th>
-                                        <th>Department</th>
+
+                                        <th>Subject Code</th>
+
+                                        <th>Subject Name</th>
+
                                         <th>Action</th>
 
                                     </tr>
@@ -109,10 +130,6 @@ function ManageSubjects() {
                                                 <td>{subject.code}</td>
 
                                                 <td>{subject.name}</td>
-
-                                                <td>{subject.semester}</td>
-
-                                                <td>{subject.department}</td>
 
                                                 <td>
 
@@ -168,33 +185,39 @@ function ManageSubjects() {
 
                                 <div className="card-body">
 
-                                    <input
-                                        className="form-control mb-3"
-                                        name="code"
-                                        value={editingSubject.code}
-                                        onChange={handleChange}
-                                    />
+                                    <div className="mb-3">
 
-                                    <input
-                                        className="form-control mb-3"
-                                        name="name"
-                                        value={editingSubject.name}
-                                        onChange={handleChange}
-                                    />
+                                        <label className="form-label">
 
-                                    <input
-                                        className="form-control mb-3"
-                                        name="semester"
-                                        value={editingSubject.semester}
-                                        onChange={handleChange}
-                                    />
+                                            Subject Code
 
-                                    <input
-                                        className="form-control mb-3"
-                                        name="department"
-                                        value={editingSubject.department}
-                                        onChange={handleChange}
-                                    />
+                                        </label>
+
+                                        <input
+                                            className="form-control"
+                                            name="code"
+                                            value={editingSubject.code}
+                                            onChange={handleChange}
+                                        />
+
+                                    </div>
+
+                                    <div className="mb-3">
+
+                                        <label className="form-label">
+
+                                            Subject Name
+
+                                        </label>
+
+                                        <input
+                                            className="form-control"
+                                            name="name"
+                                            value={editingSubject.name}
+                                            onChange={handleChange}
+                                        />
+
+                                    </div>
 
                                     <button
                                         className="btn btn-success me-2"
