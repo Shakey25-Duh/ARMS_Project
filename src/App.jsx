@@ -39,14 +39,13 @@ import StudentSubjects from "./pages/StudentSubjects";
 import StudentMarks from "./pages/StudentMarks";
 import StudentResult from "./pages/StudentResult";
 
-
 function App() {
 
     return (
 
         <Routes>
 
-            {/* ================= HOME / LOGIN ================= */}
+            {/* ================= HOME ================= */}
 
             <Route
                 path="/"
@@ -158,8 +157,6 @@ function App() {
                 path="/student-result"
                 element={<StudentResult />}
             />
-
-            
 
         </Routes>
 

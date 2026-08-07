@@ -1,4 +1,5 @@
 import DashboardLayout from "../components/DashboardLayout";
+import { jsPDF } from "jspdf";
 
 function StudentResult() {
 
@@ -37,6 +38,70 @@ function StudentResult() {
         }
 
     ];
+
+    const downloadPDF = () => {
+
+        const doc = new jsPDF();
+
+        doc.setFontSize(20);
+        doc.text("Academic Result Management System", 35, 20);
+
+        doc.setFontSize(16);
+        doc.text("Pokhara University", 65, 30);
+
+        doc.setFontSize(12);
+
+        doc.text("Student Name : Hari Sharma", 20, 45);
+        doc.text("Roll Number : BCA001", 20, 53);
+        doc.text("Registration No : PU-2024-001", 20, 61);
+
+        doc.line(20, 68, 190, 68);
+
+        let y = 78;
+
+        doc.text("Semester", 20, y);
+        doc.text("Total", 80, y);
+        doc.text("%", 115, y);
+        doc.text("GPA", 140, y);
+        doc.text("Result", 165, y);
+
+        y += 5;
+
+        doc.line(20, y, 190, y);
+
+        y += 8;
+
+        results.forEach((item) => {
+
+            doc.text(item.semester, 20, y);
+            doc.text(String(item.total), 80, y);
+            doc.text(item.percentage, 115, y);
+            doc.text(item.gpa, 140, y);
+            doc.text(item.result, 165, y);
+
+            y += 10;
+
+        });
+
+        doc.line(20, y, 190, y);
+
+        y += 15;
+
+        doc.setFontSize(14);
+
+        doc.text("Overall GPA : 3.68", 20, y);
+
+        y += 10;
+
+        doc.text("Overall Percentage : 83.4%", 20, y);
+
+        y += 10;
+
+        doc.text("Final Result : PASS", 20, y);
+
+        doc.save("Student_Result.pdf");
+
+    };
 
     return (
 
@@ -128,6 +193,19 @@ function StudentResult() {
                             </tbody>
 
                         </table>
+
+                        <div className="text-end mt-3">
+
+                            <button
+                                className="btn btn-danger"
+                                onClick={downloadPDF}
+                            >
+
+                                📄 Download Result PDF
+
+                            </button>
+
+                        </div>
 
                     </div>
 

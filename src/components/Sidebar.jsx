@@ -151,9 +151,7 @@ function Sidebar({ role = "admin" }) {
 
                         <hr />
 
-                        <Link to="/student-subjects">
-                            📚 My Subjects
-                        </Link>
+                        
 
                         <hr />
 
