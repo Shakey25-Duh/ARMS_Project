@@ -1,0 +1,9 @@
+FastAPI
+Uvicorn
+SQLAlchemy
+PyMySQL
+python-dotenv
+python-jose
+passlib[bcrypt]
+Pydantic
+ReportLab

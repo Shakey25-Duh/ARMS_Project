@@ -1,13 +1,14 @@
 import { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
+import { addStudent } from "../api/studentApi";
 
 function AddStudent() {
 
     const [student, setStudent] = useState({
         fullname: "",
-        roll: "",
-        registration: "",
+        roll_no: "",
+        registration_no: "",
         email: "",
         phone: "",
         gender: "",
@@ -15,9 +16,12 @@ function AddStudent() {
         semester: "",
         section: "",
         batch: "",
+        department: "",
         address: "",
         guardian: "",
-        guardianPhone: ""
+        guardian_phone: "",
+        username: "",
+        password: ""
     });
 
     const handleChange = (e) => {
@@ -27,28 +31,44 @@ function AddStudent() {
         });
     };
 
-    const saveStudent = (e) => {
+    const saveStudent = async (e) => {
         e.preventDefault();
 
-        console.log(student);
+        try {
 
-        alert("Student Added Successfully ✅");
+            await addStudent(student);
 
-        setStudent({
-            fullname: "",
-            roll: "",
-            registration: "",
-            email: "",
-            phone: "",
-            gender: "",
-            dob: "",
-            semester: "",
-            section: "",
-            batch: "",
-            address: "",
-            guardian: "",
-            guardianPhone: ""
-        });
+            alert("Student Added Successfully");
+
+            setStudent({
+                fullname: "",
+                roll_no: "",
+                registration_no: "",
+                email: "",
+                phone: "",
+                gender: "",
+                dob: "",
+                semester: "",
+                section: "",
+                batch: "",
+                department: "",
+                address: "",
+                guardian: "",
+                guardian_phone: "",
+                username: "",
+                password: ""
+            });
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert(
+                error.response?.data?.detail ||
+                "Failed to Add Student!"
+            );
+
+        }
     };
 
     return (
@@ -90,8 +110,8 @@ function AddStudent() {
                                         <input
                                             type="text"
                                             className="form-control"
-                                            name="roll"
-                                            value={student.roll}
+                                            name="roll_no"
+                                            value={student.roll_no}
                                             onChange={handleChange}
                                             required
                                         />
@@ -102,8 +122,8 @@ function AddStudent() {
                                         <input
                                             type="text"
                                             className="form-control"
-                                            name="registration"
-                                            value={student.registration}
+                                            name="registration_no"
+                                            value={student.registration_no}
                                             onChange={handleChange}
                                             required
                                         />
@@ -143,14 +163,10 @@ function AddStudent() {
                                             onChange={handleChange}
                                             required
                                         >
-                                            <option value="">
-                                                Select Gender
-                                            </option>
-
+                                            <option value="">Select Gender</option>
                                             <option>Male</option>
                                             <option>Female</option>
                                             <option>Other</option>
-
                                         </select>
 
                                     </div>
@@ -179,10 +195,7 @@ function AddStudent() {
                                             onChange={handleChange}
                                             required
                                         >
-                                            <option value="">
-                                                Select Semester
-                                            </option>
-
+                                            <option value="">Select Semester</option>
                                             <option>1st</option>
                                             <option>2nd</option>
                                             <option>3rd</option>
@@ -191,15 +204,12 @@ function AddStudent() {
                                             <option>6th</option>
                                             <option>7th</option>
                                             <option>8th</option>
-
                                         </select>
 
                                     </div>
 
                                     <div className="col-md-6 mb-3">
-
                                         <label>Section</label>
-
                                         <input
                                             type="text"
                                             className="form-control"
@@ -207,13 +217,10 @@ function AddStudent() {
                                             value={student.section}
                                             onChange={handleChange}
                                         />
-
                                     </div>
 
                                     <div className="col-md-6 mb-3">
-
                                         <label>Batch</label>
-
                                         <input
                                             type="text"
                                             className="form-control"
@@ -222,13 +229,27 @@ function AddStudent() {
                                             value={student.batch}
                                             onChange={handleChange}
                                         />
-
                                     </div>
 
                                     <div className="col-md-6 mb-3">
+                                        <label>Department</label>
+                                        <select
+                                            className="form-select"
+                                            name="department"
+                                            value={student.department}
+                                            onChange={handleChange}
+                                            required
+                                        >
+                                            <option value="">Select Department</option>
+                                            <option>BCA</option>
+                                            <option>BBA</option>
+                                            <option>BHM</option>
+                                            <option>BIT</option>
+                                        </select>
+                                    </div>
 
+                                    <div className="col-md-6 mb-3">
                                         <label>Guardian Name</label>
-
                                         <input
                                             type="text"
                                             className="form-control"
@@ -236,27 +257,21 @@ function AddStudent() {
                                             value={student.guardian}
                                             onChange={handleChange}
                                         />
-
                                     </div>
 
                                     <div className="col-md-6 mb-3">
-
                                         <label>Guardian Contact</label>
-
                                         <input
                                             type="text"
                                             className="form-control"
-                                            name="guardianPhone"
-                                            value={student.guardianPhone}
+                                            name="guardian_phone"
+                                            value={student.guardian_phone}
                                             onChange={handleChange}
                                         />
-
                                     </div>
 
                                     <div className="col-12 mb-3">
-
                                         <label>Address</label>
-
                                         <textarea
                                             className="form-control"
                                             rows="3"
@@ -264,7 +279,32 @@ function AddStudent() {
                                             value={student.address}
                                             onChange={handleChange}
                                         />
+                                    </div>
 
+                                    <hr className="mt-2 mb-3" />
+
+                                    <div className="col-md-6 mb-3">
+                                        <label>Login Username</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            name="username"
+                                            value={student.username}
+                                            onChange={handleChange}
+                                            required
+                                        />
+                                    </div>
+
+                                    <div className="col-md-6 mb-3">
+                                        <label>Login Password</label>
+                                        <input
+                                            type="password"
+                                            className="form-control"
+                                            name="password"
+                                            value={student.password}
+                                            onChange={handleChange}
+                                            required
+                                        />
                                     </div>
 
                                 </div>

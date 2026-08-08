@@ -1,6 +1,32 @@
+import { useState, useEffect } from "react";
 import DashboardLayout from "../components/DashboardLayout";
+import { getMyTeacherProfile } from "../api/teacherSelfApi";
 
 function TeacherProfile() {
+
+    const [teacher, setTeacher] = useState(null);
+
+    useEffect(() => {
+        loadProfile();
+    }, []);
+
+    async function loadProfile() {
+        try {
+            const response = await getMyTeacherProfile();
+            setTeacher(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    if (!teacher) {
+        return (
+            <DashboardLayout role="teacher" title="Teacher Profile">
+                <div className="container mt-4">Loading...</div>
+            </DashboardLayout>
+        );
+    }
+
     return (
         <DashboardLayout
             role="teacher"
@@ -18,21 +44,18 @@ function TeacherProfile() {
 
                     <div className="card-body text-center">
 
-                        <img
-                            src="https://via.placeholder.com/150"
-                            alt="Teacher"
-                            className="rounded-circle mb-3"
-                        />
+                        <h4>{teacher.fullname}</h4>
 
-                        <h4>Ram Sharma</h4>
+                        <p><strong>Email:</strong> {teacher.email}</p>
 
-                        <p><strong>Email:</strong> ram@gmail.com</p>
+                        <p><strong>Phone:</strong> {teacher.phone}</p>
 
-                        <p><strong>Phone:</strong> 9800000000</p>
+                        <p><strong>Department:</strong> {teacher.department}</p>
 
-                        <p><strong>Department:</strong> BCA</p>
+                        <p><strong>Subject:</strong> {teacher.subject}</p>
 
-                        <p><strong>Designation:</strong> Lecturer</p>
+                        <p><strong>Semester:</strong> {teacher.semester}</p>
+
 
                     </div>
 

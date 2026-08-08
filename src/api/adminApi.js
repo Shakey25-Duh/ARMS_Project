@@ -14,13 +14,11 @@ API.interceptors.request.use((config) => {
     return config;
 });
 
-export const getSubjects = () => API.get("/subjects/");
+export const getAllStudents = () =>
+    API.get("/students/all");
 
-export const addSubject = (subject) =>
-    API.post("/subjects/", subject);
+export const getAllMarks = () =>
+    API.get("/marks/all");
 
-export const updateSubject = (id, subject) =>
-    API.put(`/subjects/${id}`, subject);
-
-export const deleteSubject = (id) =>
-    API.delete(`/subjects/${id}`);
+export const getStudentMarks = (studentId) =>
+    API.get(`/marks/student/${studentId}`);

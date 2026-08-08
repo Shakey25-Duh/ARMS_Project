@@ -16,7 +16,7 @@ function TeacherLogin() {
 
       navigate("/teacher-dashboard", {
         state: {
-          message: "✅ Login Successful"
+          message: "Login Successful"
         }
       });
 

@@ -2,9 +2,11 @@ import { Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Home";
 
+
 /* ================= ADMIN ================= */
 
 import AdminDashboard from "./pages/AdminDashboard";
+import AdminLogin from "./pages/AdminLogin";
 
 import AddTeacher from "./pages/AddTeacher";
 import ManageTeachers from "./pages/ManageTeachers";
@@ -21,7 +23,6 @@ import Reports from "./pages/Reports";
 
 import TeacherDashboard from "./pages/TeacherDashboard";
 
-import MySubjects from "./pages/MySubjects";
 
 import AddStudent from "./pages/AddStudent";
 import ManageStudents from "./pages/ManageStudents";
@@ -35,7 +36,6 @@ import TeacherProfile from "./pages/TeacherProfile";
 
 import StudentDashboard from "./pages/StudentDashboard";
 import StudentProfile from "./pages/StudentProfile";
-import StudentSubjects from "./pages/StudentSubjects";
 import StudentMarks from "./pages/StudentMarks";
 import StudentResult from "./pages/StudentResult";
 
@@ -53,6 +53,11 @@ function App() {
             />
 
             {/* ================= ADMIN ================= */}
+
+            <Route
+                path="/admin-login"
+                element={<AdminLogin />}
+            />
 
             <Route
                 path="/admin-dashboard"
@@ -101,10 +106,6 @@ function App() {
                 element={<TeacherDashboard />}
             />
 
-            <Route
-                path="/my-subjects"
-                element={<MySubjects />}
-            />
 
             <Route
                 path="/add-student"
@@ -141,11 +142,6 @@ function App() {
             <Route
                 path="/student-profile"
                 element={<StudentProfile />}
-            />
-
-            <Route
-                path="/student-subjects"
-                element={<StudentSubjects />}
             />
 
             <Route

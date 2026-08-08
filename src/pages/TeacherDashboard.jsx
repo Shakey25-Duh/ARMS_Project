@@ -1,7 +1,37 @@
+import { useState, useEffect } from "react";
 import DashboardLayout from "../components/DashboardLayout";
 import DashboardCard from "../components/DashboardCard";
+import { getMyTeacherProfile } from "../api/teacherSelfApi";
+import { getGradableStudents, getMyMarks } from "../api/marksApi";
 
 function TeacherDashboard() {
+
+    const [teacher, setTeacher] = useState(null);
+    const [totalStudents, setTotalStudents] = useState(0);
+    const [marksSubmitted, setMarksSubmitted] = useState(0);
+
+    useEffect(() => {
+        loadData();
+    }, []);
+
+    async function loadData() {
+        try {
+            const [teacherRes, studentsRes, marksRes] = await Promise.all([
+                getMyTeacherProfile(),
+                getGradableStudents(),
+                getMyMarks()
+            ]);
+
+            setTeacher(teacherRes.data);
+            setTotalStudents(studentsRes.data.length);
+            setMarksSubmitted(marksRes.data.length);
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const pendingMarks = totalStudents - marksSubmitted;
 
     return (
 
@@ -13,7 +43,7 @@ function TeacherDashboard() {
             <div className="container-fluid mt-4">
 
                 <h2 className="mb-4">
-                    Welcome, Ram Sharma 👋
+                    Welcome, {teacher ? teacher.fullname : "..."} !
                 </h2>
 
                 {/* Dashboard Cards */}
@@ -22,38 +52,38 @@ function TeacherDashboard() {
 
                     <DashboardCard
                         title="Total Students"
-                        value="120"
+                        value={totalStudents}
                         color="primary"
                     />
 
                     <DashboardCard
-                        title="My Subjects"
-                        value="4"
+                        title="Marks Submitted"
+                        value={marksSubmitted}
                         color="success"
                     />
 
                     <DashboardCard
-                        title="Marks Submitted"
-                        value="80"
-                        color="warning"
+                        title="Pending Marks"
+                        value={pendingMarks > 0 ? pendingMarks : 0}
+                        color="danger"
                     />
 
                     <DashboardCard
-                        title="Pending Marks"
-                        value="20"
-                        color="danger"
+                        title="Credit Hour"
+                        value={teacher ? teacher.credit_hour : "-"}
+                        color="warning"
                     />
 
                 </div>
 
-                {/* My Subjects */}
+                {/* My Subject */}
 
                 <div className="card shadow mt-3">
 
                     <div className="card-header bg-success text-white">
 
                         <h5 className="mb-0">
-                            My Subjects
+                            My Subject
                         </h5>
 
                     </div>
@@ -67,8 +97,8 @@ function TeacherDashboard() {
                                 <tr>
 
                                     <th>Semester</th>
-                                    <th>Subject Code</th>
                                     <th>Subject Name</th>
+                                    <th>Department</th>
 
                                 </tr>
 
@@ -76,37 +106,17 @@ function TeacherDashboard() {
 
                             <tbody>
 
-                                <tr>
+                                {teacher && (
 
-                                    <td>1st</td>
-                                    <td>BCA101</td>
-                                    <td>Programming Logic & Design</td>
+                                    <tr>
 
-                                </tr>
+                                        <td>{teacher.semester}</td>
+                                        <td>{teacher.subject}</td>
+                                        <td>{teacher.department}</td>
 
-                                <tr>
+                                    </tr>
 
-                                    <td>2nd</td>
-                                    <td>BCA201</td>
-                                    <td>C Programming</td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <td>3rd</td>
-                                    <td>BCA301</td>
-                                    <td>Java Programming</td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <td>4th</td>
-                                    <td>BCA401</td>
-                                    <td>Database Management System</td>
-
-                                </tr>
+                                )}
 
                             </tbody>
 

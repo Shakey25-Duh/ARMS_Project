@@ -26,7 +26,7 @@ function Sidebar({ role = "admin" }) {
                     <>
 
                         <Link to="/admin-dashboard">
-                            🏠 Dashboard
+                            Dashboard
                         </Link>
 
                         <hr />
@@ -34,11 +34,11 @@ function Sidebar({ role = "admin" }) {
                         <h6>Teacher</h6>
 
                         <Link to="/add-teacher">
-                            ➕ Add Teacher
+                            Add Teacher
                         </Link>
 
                         <Link to="/manage-teachers">
-                            👨‍🏫 Manage Teachers
+                             Manage Teachers
                         </Link>
 
                         <hr />
@@ -46,11 +46,11 @@ function Sidebar({ role = "admin" }) {
                         <h6>Subject</h6>
 
                         <Link to="/add-subject">
-                            📘 Add Subject
+                             Add Subject
                         </Link>
 
                         <Link to="/manage-subjects">
-                            📚 Manage Subjects
+                             Manage Subjects
                         </Link>
 
                         <hr />
@@ -58,17 +58,17 @@ function Sidebar({ role = "admin" }) {
                         <h6>Department</h6>
 
                         <Link to="/add-department">
-                            🏢 Add Department
+                             Add Department
                         </Link>
 
                         <Link to="/manage-departments">
-                            🏫 Manage Departments
+                             Manage Departments
                         </Link>
 
                         <hr />
 
                         <Link to="/reports">
-                            📊 Reports
+                             Reports
                         </Link>
 
                     </>
@@ -84,27 +84,17 @@ function Sidebar({ role = "admin" }) {
                     <>
 
                         <Link to="/teacher-dashboard">
-                            🏠 Dashboard
+                             Dashboard
                         </Link>
-
-                        <hr />
-
-                        <h6>Subjects</h6>
-
-                        <Link to="/my-subjects">
-                            📚 My Subjects
-                        </Link>
-
-                        <hr />
 
                         <h6>Students</h6>
 
                         <Link to="/add-student">
-                            ➕ Add Student
+                            Add Student
                         </Link>
 
                         <Link to="/manage-students">
-                            👨‍🎓 Manage Students
+                             Manage Students
                         </Link>
 
                         <hr />
@@ -112,11 +102,11 @@ function Sidebar({ role = "admin" }) {
                         <h6>Marks</h6>
 
                         <Link to="/add-marks">
-                            📝 Add Marks
+                             Add Marks
                         </Link>
 
                         <Link to="/manage-marks">
-                            📑 Manage Marks
+                             Manage Marks
                         </Link>
 
                         <hr />
@@ -124,7 +114,7 @@ function Sidebar({ role = "admin" }) {
                         <h6>Profile</h6>
 
                         <Link to="/teacher-profile">
-                            👤 My Profile
+                             My Profile
                         </Link>
 
                     </>
@@ -140,29 +130,24 @@ function Sidebar({ role = "admin" }) {
                     <>
 
                         <Link to="/student-dashboard">
-                            🏠 Dashboard
+                             Dashboard
                         </Link>
 
                         <hr />
 
                         <Link to="/student-profile">
-                            👤 My Profile
+                             Profile
                         </Link>
 
-                        <hr />
-
-                        
-
-                        <hr />
 
                         <Link to="/student-marks">
-                            📝 My Marks
+                             Marks Obtained
                         </Link>
 
                         <hr />
 
                         <Link to="/student-result">
-                            📊 Result
+                            Result
                         </Link>
 
                         <hr />

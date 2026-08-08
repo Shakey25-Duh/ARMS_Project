@@ -1,7 +1,8 @@
 import { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
-import axios from "axios";
+import { addDepartment } from "../api/departmentApi";
+
 
 function AddDepartment() {
 
@@ -21,32 +22,28 @@ function AddDepartment() {
 
     async function saveDepartment(e) {
 
-        e.preventDefault();
+    e.preventDefault();
 
-        try {
+    try {
 
-            await axios.post(
-                "http://127.0.0.1:8000/departments/",
-                department
-            );
+        await addDepartment(department);
 
-            alert("Department Added Successfully");
+        alert("Department Added Successfully");
 
-            setDepartment({
-                name: "",
-                faculty: ""
-            });
+        setDepartment({
+            name: "",
+            faculty: ""
+        });
 
-        } catch (error) {
+    } catch (error) {
 
-            console.log(error);
+        console.log(error);
 
-            alert("Failed to add department.");
-
-        }
+        alert("Failed to add department.");
 
     }
 
+}
     return (
 
         <>

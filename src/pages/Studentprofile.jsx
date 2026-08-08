@@ -1,139 +1,102 @@
+import { useState, useEffect } from "react";
 import DashboardLayout from "../components/DashboardLayout";
+import { getMyProfile } from "../api/studentSelfApi";
 
 function StudentProfile() {
 
+    const [profile, setProfile] = useState(null);
+
+    useEffect(() => {
+        loadProfile();
+    }, []);
+
+    async function loadProfile() {
+        try {
+            const response = await getMyProfile();
+            setProfile(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    if (!profile) {
+        return (
+            <DashboardLayout role="student" title="My Profile">
+                <div className="container mt-4">Loading...</div>
+            </DashboardLayout>
+        );
+    }
+
     return (
 
-        <DashboardLayout
-            role="student"
-            title="My Profile"
-        >
+        <DashboardLayout role="student" title="My Profile">
 
-            <div className="container-fluid mt-4">
+            <div className="container mt-4">
 
                 <div className="card shadow">
 
                     <div className="card-header bg-primary text-white">
-
-                        <h4 className="mb-0">
-                            Student Profile
-                        </h4>
-
+                        <h3>My Profile</h3>
                     </div>
 
                     <div className="card-body">
 
                         <div className="row">
 
-                            <div className="col-md-3 text-center">
-
-                                <img
-                                    src="https://via.placeholder.com/180"
-                                    alt="Student"
-                                    className="img-thumbnail rounded-circle mb-3"
-                                />
-
-                                <h4>Hari Sharma</h4>
-
-                                <span className="badge bg-success">
-                                    Active Student
-                                </span>
-
+                            <div className="col-md-6 mb-3">
+                                <strong>Full Name:</strong> {profile.fullname}
                             </div>
 
-                            <div className="col-md-9">
+                            <div className="col-md-6 mb-3">
+                                <strong>Roll Number:</strong> {profile.roll_no}
+                            </div>
 
-                                <table className="table table-bordered">
+                            <div className="col-md-6 mb-3">
+                                <strong>Registration Number:</strong> {profile.registration_no}
+                            </div>
 
-                                    <tbody>
+                            <div className="col-md-6 mb-3">
+                                <strong>Gender:</strong> {profile.gender}
+                            </div>
 
-                                        <tr>
-                                            <th width="30%">Full Name</th>
-                                            <td>Hari Sharma</td>
-                                        </tr>
+                            <div className="col-md-6 mb-3">
+                                <strong>Date of Birth:</strong> {profile.dob}
+                            </div>
 
-                                        <tr>
-                                            <th>Roll Number</th>
-                                            <td>BCA001</td>
-                                        </tr>
+                            <div className="col-md-6 mb-3">
+                                <strong>Semester:</strong> {profile.semester}
+                            </div>
 
-                                        <tr>
-                                            <th>Registration Number</th>
-                                            <td>PU-BCA-2081-001</td>
-                                        </tr>
+                            <div className="col-md-6 mb-3">
+                                <strong>Section:</strong> {profile.section}
+                            </div>
 
-                                        <tr>
-                                            <th>Email</th>
-                                            <td>hari@gmail.com</td>
-                                        </tr>
+                            <div className="col-md-6 mb-3">
+                                <strong>Batch:</strong> {profile.batch}
+                            </div>
 
-                                        <tr>
-                                            <th>Phone</th>
-                                            <td>9800000001</td>
-                                        </tr>
+                            <div className="col-md-6 mb-3">
+                                <strong>Department:</strong> {profile.department}
+                            </div>
 
-                                        <tr>
-                                            <th>Gender</th>
-                                            <td>Male</td>
-                                        </tr>
+                            <div className="col-md-6 mb-3">
+                                <strong>Email:</strong> {profile.email}
+                            </div>
 
-                                        <tr>
-                                            <th>Date of Birth</th>
-                                            <td>15 January 2004</td>
-                                        </tr>
+                            <div className="col-md-6 mb-3">
+                                <strong>Phone:</strong> {profile.phone}
+                            </div>
 
-                                        <tr>
-                                            <th>Department</th>
-                                            <td>BCA</td>
-                                        </tr>
+                            <div className="col-md-6 mb-3">
+                                <strong>Address:</strong> {profile.address}
+                            </div>
 
-                                        <tr>
-                                            <th>Semester</th>
-                                            <td>4th Semester</td>
-                                        </tr>
+                            <div className="col-md-6 mb-3">
+                                <strong>Guardian Name:</strong> {profile.guardian}
+                            </div>
 
-                                        <tr>
-                                            <th>Section</th>
-                                            <td>A</td>
-                                        </tr>
-
-                                        <tr>
-                                            <th>Batch</th>
-                                            <td>2023</td>
-                                        </tr>
-
-                                        <tr>
-                                            <th>Address</th>
-                                            <td>Kathmandu, Nepal</td>
-                                        </tr>
-
-                                        <tr>
-                                            <th>Guardian</th>
-                                            <td>Ramesh Sharma</td>
-                                        </tr>
-
-                                        <tr>
-                                            <th>Guardian Contact</th>
-                                            <td>9811111111</td>
-                                        </tr>
-
-                                        <tr>
-                                            <th>Status</th>
-                                            <td>
-
-                                                <span className="badge bg-success">
-
-                                                    Active
-
-                                                </span>
-
-                                            </td>
-                                        </tr>
-
-                                    </tbody>
-
-                                </table>
-
+                            <div className="col-md-6 mb-3">
+                                <strong>Guardian Contact:</strong> {profile.guardian_phone}
                             </div>
 
                         </div>
@@ -147,7 +110,6 @@ function StudentProfile() {
         </DashboardLayout>
 
     );
-
 }
 
 export default StudentProfile;

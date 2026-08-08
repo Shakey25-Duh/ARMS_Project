@@ -1,12 +1,6 @@
-# Python cache
+node_modules/
+.venv/
 __pycache__/
 *.pyc
-
-# Database files
+.env
 *.db
-
-# Virtual environment
-env/
-
-# Node modules
-node_modules/

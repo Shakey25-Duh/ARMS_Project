@@ -1,49 +1,79 @@
+import { useState, useEffect } from "react";
 import DashboardLayout from "../components/DashboardLayout";
 import DashboardCard from "../components/DashboardCard";
+import { getMyProfile, getMySubjects, getMyMarks } from "../api/studentSelfApi";
 
 function StudentDashboard() {
 
+    const [profile, setProfile] = useState(null);
+    const [subjects, setSubjects] = useState([]);
+    const [marks, setMarks] = useState([]);
+
+    useEffect(() => {
+        loadData();
+    }, []);
+
+    async function loadData() {
+        try {
+            const [profileRes, subjectsRes, marksRes] = await Promise.all([
+                getMyProfile(),
+                getMySubjects(),
+                getMyMarks()
+            ]);
+
+            setProfile(profileRes.data);
+            setSubjects(subjectsRes.data);
+            setMarks(marksRes.data);
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const pendingCount = subjects.length - marks.length;
+
     return (
 
-        <DashboardLayout
-            role="student"
-            title="Student Dashboard"
-        >
+        <DashboardLayout role="student" title="Student Dashboard">
 
             <div className="container-fluid mt-4">
 
                 <h2 className="mb-4">
-                    Welcome, Hari Sharma 👋
+                    Welcome, {profile ? profile.fullname : "..."} 
                 </h2>
-
-                {/* Dashboard Cards */}
 
                 <div className="row">
 
                     <DashboardCard
-                        title="Published Marks"
-                        value="5"
+                        title="My Subjects"
+                        value={subjects.length}
+                        color="primary"
+                    />
+
+                    <DashboardCard
+                        title="Marks Received"
+                        value={marks.length}
                         color="success"
                     />
 
                     <DashboardCard
-                        title="Current GPA"
-                        value="3.72"
+                        title="Pending Marks"
+                        value={pendingCount > 0 ? pendingCount : 0}
                         color="warning"
+                    />
+
+                    <DashboardCard
+                        title="Semester"
+                        value={profile ? profile.semester : "-"}
+                        color="danger"
                     />
 
                 </div>
 
-                {/* Current Semester Subjects */}
+                <div className="card shadow mt-3">
 
-                <div className="card shadow mb-4">
-
-                    <div className="card-header bg-primary text-white">
-
-                        <h5 className="mb-0">
-                            Current Semester Subjects
-                        </h5>
-
+                    <div className="card-header bg-success text-white">
+                        <h5 className="mb-0">My Subjects This Semester</h5>
                     </div>
 
                     <div className="card-body">
@@ -51,59 +81,21 @@ function StudentDashboard() {
                         <table className="table table-bordered table-hover">
 
                             <thead className="table-light">
-
                                 <tr>
-
-                                    <th>Subject Code</th>
-                                    <th>Subject Name</th>
-                                    <th>Credit Hour</th>
-
+                                    <th>Subject</th>
+                                    <th>Teacher</th>
+                                    <th>Semester</th>
                                 </tr>
-
                             </thead>
 
                             <tbody>
-
-                                <tr>
-
-                                    <td>BCA401</td>
-                                    <td>Database Management System</td>
-                                    <td>3</td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <td>BCA402</td>
-                                    <td>Operating System</td>
-                                    <td>3</td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <td>BCA403</td>
-                                    <td>Computer Graphics</td>
-                                    <td>3</td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <td>BCA404</td>
-                                    <td>Web Technology II</td>
-                                    <td>3</td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <td>BCA405</td>
-                                    <td>Software Engineering</td>
-                                    <td>3</td>
-
-                                </tr>
-
+                                {subjects.map((s, index) => (
+                                    <tr key={index}>
+                                        <td>{s.subject}</td>
+                                        <td>{s.fullname}</td>
+                                        <td>{s.semester}</td>
+                                    </tr>
+                                ))}
                             </tbody>
 
                         </table>
@@ -117,7 +109,6 @@ function StudentDashboard() {
         </DashboardLayout>
 
     );
-
 }
 
 export default StudentDashboard;

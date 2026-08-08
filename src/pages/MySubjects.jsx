@@ -1,43 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DashboardLayout from "../components/DashboardLayout";
+import { getMyTeacherProfile } from "../api/teacherSelfApi";
 
 function MySubjects() {
 
-    const [subjects] = useState([
+    const [teacher, setTeacher] = useState(null);
 
-        {
-            id: 1,
-            semester: "1st Semester",
-            code: "BCA101",
-            subject: "Programming Logic & Design",
-            department: "BCA"
-        },
+    useEffect(() => {
+        loadProfile();
+    }, []);
 
-        {
-            id: 2,
-            semester: "2nd Semester",
-            code: "BCA201",
-            subject: "C Programming",
-            department: "BCA"
-        },
-
-        {
-            id: 3,
-            semester: "3rd Semester",
-            code: "BCA301",
-            subject: "Java Programming",
-            department: "BCA"
-        },
-
-        {
-            id: 4,
-            semester: "4th Semester",
-            code: "BCA401",
-            subject: "Database Management System",
-            department: "BCA"
+    async function loadProfile() {
+        try {
+            const response = await getMyTeacherProfile();
+            setTeacher(response.data);
+        } catch (error) {
+            console.log(error);
         }
-
-    ]);
+    }
 
     return (
 
@@ -64,11 +44,10 @@ function MySubjects() {
 
                                 <tr>
 
-                                    <th>ID</th>
                                     <th>Semester</th>
-                                    <th>Subject Code</th>
                                     <th>Subject Name</th>
                                     <th>Department</th>
+                                    <th>Credit Hour</th>
 
                                 </tr>
 
@@ -76,23 +55,18 @@ function MySubjects() {
 
                             <tbody>
 
-                                {
+                                {teacher && (
 
-                                    subjects.map(subject => (
+                                    <tr>
 
-                                        <tr key={subject.id}>
+                                        <td>{teacher.semester}</td>
+                                        <td>{teacher.subject}</td>
+                                        <td>{teacher.department}</td>
+                                        <td>{teacher.credit_hour}</td>
 
-                                            <td>{subject.id}</td>
-                                            <td>{subject.semester}</td>
-                                            <td>{subject.code}</td>
-                                            <td>{subject.subject}</td>
-                                            <td>{subject.department}</td>
+                                    </tr>
 
-                                        </tr>
-
-                                    ))
-
-                                }
+                                )}
 
                             </tbody>
 

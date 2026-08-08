@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import { addTeacher } from "../api/teacherApi";
+import { getDepartments } from "../api/departmentApi";
+import { getSubjects } from "../api/subjectApi";
 
 function AddTeacher() {
 
@@ -10,10 +12,68 @@ function AddTeacher() {
         email: "",
         phone: "",
         department: "",
-        subject: ""
+        subject: "",
+        semester: "",
+        credit_hour: "",
+        username: "",
+        password: ""
     });
 
+    const [departments, setDepartments] = useState([]);
+    const [subjects, setSubjects] = useState([]);
+
+    useEffect(() => {
+        loadDropdownData();
+    }, []);
+
+    async function loadDropdownData() {
+        try {
+            const [deptRes, subjRes] = await Promise.all([
+                getDepartments(),
+                getSubjects()
+            ]);
+
+            setDepartments(deptRes.data);
+            setSubjects(subjRes.data);
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const filteredSubjects = subjects.filter(
+        (s) => s.department === teacher.department
+    );
+
     function handleChange(e) {
+
+        if (e.target.name === "department") {
+
+            setTeacher({
+                ...teacher,
+                department: e.target.value,
+                subject: "",
+                semester: "",
+            });
+
+            return;
+        }
+
+        if (e.target.name === "subject") {
+
+            const selectedSubject = subjects.find(
+                (s) => s.name === e.target.value
+            );
+
+            setTeacher({
+                ...teacher,
+                subject: e.target.value,
+                semester: selectedSubject ? selectedSubject.semester : "",
+                credit_hour: selectedSubject ? selectedSubject.credit_hour : ""
+            });
+
+            return;
+        }
 
         setTeacher({
             ...teacher,
@@ -30,21 +90,24 @@ function AddTeacher() {
 
             await addTeacher(teacher);
 
-            alert("Teacher Added Successfully ✅");
+            alert("Teacher Added Successfully");
 
             setTeacher({
                 fullname: "",
                 email: "",
                 phone: "",
                 department: "",
-                subject: ""
+                subject: "",
+                semester: "",
+                username: "",
+                password: ""
             });
 
         } catch (error) {
 
             console.error(error);
 
-            alert("Failed to Add Teacher ❌");
+            alert("Failed to Add Teacher");
 
         }
 
@@ -74,8 +137,6 @@ function AddTeacher() {
 
                             <form onSubmit={saveTeacher}>
 
-                                {/* Full Name */}
-
                                 <div className="mb-3">
 
                                     <label className="form-label">
@@ -92,8 +153,6 @@ function AddTeacher() {
                                     />
 
                                 </div>
-
-                                {/* Email */}
 
                                 <div className="mb-3">
 
@@ -112,8 +171,6 @@ function AddTeacher() {
 
                                 </div>
 
-                                {/* Phone */}
-
                                 <div className="mb-3">
 
                                     <label className="form-label">
@@ -131,8 +188,6 @@ function AddTeacher() {
 
                                 </div>
 
-                                {/* Department */}
-
                                 <div className="mb-3">
 
                                     <label className="form-label">
@@ -147,31 +202,17 @@ function AddTeacher() {
                                         required
                                     >
 
-                                        <option value="">
-                                            Select Department
-                                        </option>
+                                        <option value="">Select Department</option>
 
-                                        <option value="Computer">
-                                            Computer
-                                        </option>
-
-                                        <option value="BCA">
-                                            BCA
-                                        </option>
-
-                                        <option value="BBA">
-                                            BBA
-                                        </option>
-
-                                        <option value="BHM">
-                                            BHM
-                                        </option>
+                                        {departments.map((dept) => (
+                                            <option key={dept.id} value={dept.name}>
+                                                {dept.name}
+                                            </option>
+                                        ))}
 
                                     </select>
 
                                 </div>
-
-                                {/* Subject */}
 
                                 <div className="mb-3">
 
@@ -185,34 +226,65 @@ function AddTeacher() {
                                         value={teacher.subject}
                                         onChange={handleChange}
                                         required
+                                        disabled={!teacher.department}
                                     >
 
                                         <option value="">
-                                            Select Subject
+                                            {teacher.department ? "Select Subject" : "Select Department First"}
                                         </option>
 
-                                        <option value="Programming Logic & Design">
-                                            Programming Logic & Design
-                                        </option>
-
-                                        <option value="C Programming">
-                                            C Programming
-                                        </option>
-
-                                        <option value="Java Programming">
-                                            Java Programming
-                                        </option>
-
-                                        <option value="Database Management System">
-                                            Database Management System
-                                        </option>
-
-                                        <option value="Web Technology">
-                                            Web Technology
-                                        </option>
+                                        {filteredSubjects.map((s) => (
+                                            <option key={s.id} value={s.name}>
+                                                {s.name}
+                                            </option>
+                                        ))}
 
                                     </select>
 
+                                </div>
+
+                                <div className="mb-3">
+
+                                    <label className="form-label">
+                                        Semester
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        name="semester"
+                                        value={teacher.semester}
+                                        readOnly
+                                    />
+
+                                </div>
+
+                                <div className="mb-3">
+                                    <label className="form-label">
+                                        Login Username
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        name="username"
+                                        value={teacher.username}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </div>
+
+                                <div className="mb-3">
+                                    <label className="form-label">
+                                        Login Password
+                                    </label>
+                                    <input
+                                        type="password"
+                                        className="form-control"
+                                        name="password"
+                                        value={teacher.password}
+                                        onChange={handleChange}
+                                        required
+                                    />
                                 </div>
 
                                 <button

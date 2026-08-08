@@ -1,292 +1,254 @@
+import { useState, useEffect } from "react";
 import DashboardLayout from "../components/DashboardLayout";
 import { jsPDF } from "jspdf";
+import { getMyProfile, getMyMarks } from "../api/studentSelfApi";
 
 function StudentResult() {
 
-    const results = [
+    const [profile, setProfile] = useState(null);
+    const [marks, setMarks] = useState([]);
+    const [selectedSemester, setSelectedSemester] = useState("");
 
-        {
-            semester: "1st Semester",
-            total: 410,
-            percentage: "82%",
-            gpa: "3.62",
-            result: "PASS"
-        },
+    useEffect(() => {
+        loadData();
+    }, []);
 
-        {
-            semester: "2nd Semester",
-            total: 404,
-            percentage: "80.8%",
-            gpa: "3.55",
-            result: "PASS"
-        },
+    async function loadData() {
+        try {
+            const [profileRes, marksRes] = await Promise.all([
+                getMyProfile(),
+                getMyMarks()
+            ]);
 
-        {
-            semester: "3rd Semester",
-            total: 422,
-            percentage: "84.4%",
-            gpa: "3.74",
-            result: "PASS"
-        },
+            setProfile(profileRes.data);
+            setMarks(marksRes.data);
 
-        {
-            semester: "4th Semester",
-            total: 432,
-            percentage: "86.4%",
-            gpa: "3.82",
-            result: "PASS"
+            // Default to the latest graded semester
+            const semesters = [...new Set(marksRes.data.map((m) => m.semester))];
+
+            if (semesters.length > 0) {
+                setSelectedSemester(semesters[semesters.length - 1]);
+            }
+
+        } catch (error) {
+            console.log(error);
         }
+    }
 
-    ];
+    // Unique semesters the student has actually been graded in
+    const availableSemesters = [...new Set(marks.map((m) => m.semester))];
+
+    // Marks for the currently selected semester only
+    const semesterMarks = marks.filter((m) => m.semester === selectedSemester);
+
+    const totalCreditPoints = semesterMarks.reduce(
+        (sum, m) => sum + (m.grade_point * m.credit_hour), 0
+    );
+    const totalCredits = semesterMarks.reduce((sum, m) => sum + m.credit_hour, 0);
+    const semesterGPA = totalCredits > 0 ? (totalCreditPoints / totalCredits).toFixed(2) : 0;
+    const semesterResult = semesterMarks.some(m => m.grade === "NG") ? "FAIL" : "PASS";
 
     const downloadPDF = () => {
 
         const doc = new jsPDF();
 
-        doc.setFontSize(20);
-        doc.text("Academic Result Management System", 35, 20);
+        doc.setFontSize(18);
+        doc.text("Academic Result Management System", 105, 18, { align: "center" });
 
-        doc.setFontSize(16);
-        doc.text("Pokhara University", 65, 30);
+        doc.setFontSize(14);
+        doc.text("Pokhara University", 105, 26, { align: "center" });
 
-        doc.setFontSize(12);
+        doc.line(20, 32, 190, 32);
 
-        doc.text("Student Name : Hari Sharma", 20, 45);
-        doc.text("Roll Number : BCA001", 20, 53);
-        doc.text("Registration No : PU-2024-001", 20, 61);
+        doc.setFontSize(11);
+        let infoY = 42;
 
-        doc.line(20, 68, 190, 68);
+        doc.text(`Student Name : ${profile?.fullname || ""}`, 20, infoY);
+        infoY += 7;
+        doc.text(`Roll Number : ${profile?.roll_no || ""}`, 20, infoY);
+        infoY += 7;
+        doc.text(`Registration No : ${profile?.registration_no || ""}`, 20, infoY);
+        infoY += 7;
+        doc.text(`Date of Birth : ${profile?.dob || ""}`, 20, infoY);
+        infoY += 7;
+        doc.text(`Semester : ${selectedSemester}`, 20, infoY);
+        infoY += 7;
+        doc.text(`Course : ${profile?.department || ""}`, 20, infoY);
 
-        let y = 78;
-
-        doc.text("Semester", 20, y);
-        doc.text("Total", 80, y);
-        doc.text("%", 115, y);
-        doc.text("GPA", 140, y);
-        doc.text("Result", 165, y);
-
-        y += 5;
+        let y = infoY + 12;
 
         doc.line(20, y, 190, y);
-
         y += 8;
 
-        results.forEach((item) => {
+        doc.setFontSize(11);
+        doc.text("Subject", 20, y);
+        doc.text("Credit Hour", 90, y);
+        doc.text("Obtained Credit", 125, y);
+        doc.text("Grade", 170, y);
 
-            doc.text(item.semester, 20, y);
-            doc.text(String(item.total), 80, y);
-            doc.text(item.percentage, 115, y);
-            doc.text(item.gpa, 140, y);
-            doc.text(item.result, 165, y);
+        y += 5;
+        doc.line(20, y, 190, y);
+        y += 8;
 
-            y += 10;
+        semesterMarks.forEach((m) => {
 
+            doc.text(m.subject, 20, y);
+            doc.text(String(m.credit_hour), 90, y);
+            doc.text(String(m.obtained_credit), 125, y);
+            doc.text(m.grade, 170, y);
+
+            y += 9;
+
+            if (y > 270) {
+                doc.addPage();
+                y = 20;
+            }
         });
 
         doc.line(20, y, 190, y);
+        y += 12;
 
-        y += 15;
+        doc.setFontSize(13);
+        doc.text(`Semester GPA : ${semesterGPA}`, 20, y);
+        y += 8;
+        doc.text(`Result : ${semesterResult}`, 20, y);
 
-        doc.setFontSize(14);
-
-        doc.text("Overall GPA : 3.68", 20, y);
-
-        y += 10;
-
-        doc.text("Overall Percentage : 83.4%", 20, y);
-
-        y += 10;
-
-        doc.text("Final Result : PASS", 20, y);
-
-        doc.save("Student_Result.pdf");
+        doc.save(`${profile.roll_no}_${selectedSemester}_Result.pdf`);
 
     };
 
     return (
 
-        <DashboardLayout
-            role="student"
-            title="Result"
-        >
+        <DashboardLayout role="student" title="Result">
 
             <div className="container-fluid mt-4">
 
-                <h2 className="mb-4">
-
-                    Semester Wise Result
-
-                </h2>
+                <h2 className="mb-4 text-center">Academic Result</h2>
 
                 <div className="card shadow">
 
-                    <div className="card-header bg-success text-white">
-
-                        <h4 className="mb-0">
-
-                            Academic Result
-
-                        </h4>
-
+                    <div className="card-header bg-success text-white text-center">
+                        <h4 className="mb-0">Academic Result Management System</h4>
+                        <small>Pokhara University</small>
                     </div>
 
                     <div className="card-body">
 
-                        <table className="table table-bordered table-hover text-center">
+                        <div className="row mb-3">
 
-                            <thead className="table-light">
+                            <div className="col-md-6">
+                                <p><strong>Student Name:</strong> {profile?.fullname}</p>
+                                <p><strong>Roll Number:</strong> {profile?.roll_no}</p>
+                                <p><strong>Registration No:</strong> {profile?.registration_no}</p>
+                                <p><strong>Date of Birth:</strong> {profile?.dob}</p>
+                                <p><strong>Course:</strong> {profile?.department}</p>
+                            </div>
 
-                                <tr>
+                            <div className="col-md-6">
 
-                                    <th>Semester</th>
+                                <label className="form-label"><strong>Select Semester</strong></label>
 
-                                    <th>Total Marks</th>
+                                <select
+                                    className="form-select"
+                                    value={selectedSemester}
+                                    onChange={(e) => setSelectedSemester(e.target.value)}
+                                >
+                                    {availableSemesters.length === 0 && (
+                                        <option value="">No results yet</option>
+                                    )}
 
-                                    <th>Percentage</th>
+                                    {availableSemesters.map((sem) => (
+                                        <option key={sem} value={sem}>
+                                            {sem} Semester
+                                        </option>
+                                    ))}
+                                </select>
 
-                                    <th>GPA</th>
+                            </div>
 
-                                    <th>Result</th>
+                        </div>
 
-                                </tr>
+                        {semesterMarks.length === 0 ? (
 
-                            </thead>
+                            <p className="text-muted">No marks available for this semester yet.</p>
 
-                            <tbody>
+                        ) : (
 
-                                {
+                            <>
 
-                                    results.map((item, index) => (
+                                <table className="table table-bordered table-hover text-center">
 
-                                        <tr key={index}>
-
-                                            <td>{item.semester}</td>
-
-                                            <td>{item.total}</td>
-
-                                            <td>{item.percentage}</td>
-
-                                            <td>{item.gpa}</td>
-
-                                            <td>
-
-                                                <span
-                                                    className={
-                                                        item.result === "PASS"
-                                                            ? "badge bg-success"
-                                                            : "badge bg-danger"
-                                                    }
-                                                >
-
-                                                    {item.result}
-
-                                                </span>
-
-                                            </td>
-
+                                    <thead className="table-light">
+                                        <tr>
+                                            <th>Subject</th>
+                                            <th>Credit Hour</th>
+                                            <th>Obtained Credit</th>
+                                            <th>Grade</th>
                                         </tr>
+                                    </thead>
 
-                                    ))
+                                    <tbody>
+                                        {semesterMarks.map((m) => (
+                                            <tr key={m.id}>
+                                                <td>{m.subject}</td>
+                                                <td>{m.credit_hour}</td>
+                                                <td>{m.obtained_credit}</td>
+                                                <td>
+                                                    <span className={m.grade === "NG" ? "badge bg-danger" : "badge bg-success"}>
+                                                        {m.grade}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
 
-                                }
+                                </table>
 
-                            </tbody>
+                                <div className="text-end mt-3">
+                                    <button className="btn btn-danger" onClick={downloadPDF}>
+                                        📄 Download Result PDF
+                                    </button>
+                                </div>
 
-                        </table>
+                            </>
 
-                        <div className="text-end mt-3">
-
-                            <button
-                                className="btn btn-danger"
-                                onClick={downloadPDF}
-                            >
-
-                                📄 Download Result PDF
-
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                {/* Overall Summary */}
-
-                <div className="row mt-4">
-
-                    <div className="col-md-3">
-
-                        <div className="card bg-primary text-white shadow">
-
-                            <div className="card-body text-center">
-
-                                <h5>Total Semesters</h5>
-
-                                <h2>4</h2>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div className="col-md-3">
-
-                        <div className="card bg-success text-white shadow">
-
-                            <div className="card-body text-center">
-
-                                <h5>Overall GPA</h5>
-
-                                <h2>3.68</h2>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div className="col-md-3">
-
-                        <div className="card bg-warning text-dark shadow">
-
-                            <div className="card-body text-center">
-
-                                <h5>Average %</h5>
-
-                                <h2>83.4%</h2>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div className="col-md-3">
-
-                        <div className="card bg-info text-white shadow">
-
-                            <div className="card-body text-center">
-
-                                <h5>Status</h5>
-
-                                <h2>PASS</h2>
-
-                            </div>
-
-                        </div>
+                        )}
 
                     </div>
 
                 </div>
+
+                {semesterMarks.length > 0 && (
+
+                    <div className="row mt-4">
+
+                        <div className="col-md-6">
+                            <div className="card bg-warning text-dark shadow">
+                                <div className="card-body text-center">
+                                    <h5>{selectedSemester} Semester GPA</h5>
+                                    <h2>{semesterGPA}</h2>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="col-md-6">
+                            <div className="card bg-info text-white shadow">
+                                <div className="card-body text-center">
+                                    <h5>Result</h5>
+                                    <h2>{semesterResult}</h2>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                )}
 
             </div>
 
         </DashboardLayout>
 
     );
-
 }
 
 export default StudentResult;

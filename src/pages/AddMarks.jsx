@@ -1,273 +1,138 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DashboardLayout from "../components/DashboardLayout";
+import { getGradableStudents, addMarks } from "../api/marksApi";
 
 function AddMarks() {
 
-    const [subject, setSubject] = useState("");
+    const [students, setStudents] = useState([]);
+    const [selectedStudent, setSelectedStudent] = useState("");
+    const [fullMarks, setFullMarks] = useState(100);
+    const [obtainedMarks, setObtainedMarks] = useState("");
 
-    const [semester, setSemester] = useState("");
+    useEffect(() => {
+        loadStudents();
+    }, []);
 
-    const [students, setStudents] = useState([
+    async function loadStudents() {
+        try {
+            const response = await getGradableStudents();
+            setStudents(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
-        {
-            id:1,
-            roll:"BCA001",
-            name:"Hari Sharma",
-            internal:"",
-            external:""
-        },
+    async function saveMarks(e) {
 
-        {
-            id:2,
-            roll:"BCA002",
-            name:"Ram Karki",
-            internal:"",
-            external:""
-        },
+        e.preventDefault();
 
-        {
-            id:3,
-            roll:"BCA003",
-            name:"Sita Nepal",
-            internal:"",
-            external:""
+        if (!selectedStudent) {
+            alert("Please select a student");
+            return;
         }
 
-    ]);
+        try {
 
-    function handleMarks(index, field, value){
+            await addMarks({
+                student_id: parseInt(selectedStudent),
+                full_marks: parseInt(fullMarks),
+                obtained_marks: parseInt(obtainedMarks)
+            });
 
-        const updated=[...students];
+            alert("Marks Added Successfully");
 
-        updated[index][field]=value;
+            setSelectedStudent("");
+            setObtainedMarks("");
 
-        setStudents(updated);
+        } catch (error) {
 
+            console.error(error);
+
+            alert(
+                error.response?.data?.detail ||
+                "Failed to add marks!"
+            );
+
+        }
     }
 
-    function saveMarks(){
+    return (
 
-        console.log({
-
-            subject,
-
-            semester,
-
-            students
-
-        });
-
-        alert("Marks Saved Successfully");
-
-    }
-
-    return(
-
-        <DashboardLayout
-            role="teacher"
-            title="Add Marks"
-        >
+        <DashboardLayout role="teacher" title="Add Marks">
 
             <div className="container mt-4">
 
                 <div className="card shadow">
 
-                    <div className="card-header bg-success text-white">
-
-                        <h3>Add Student Marks</h3>
-
+                    <div className="card-header bg-primary text-white">
+                        <h3>Add Marks</h3>
                     </div>
 
                     <div className="card-body">
 
-                        <div className="row mb-4">
+                        <form onSubmit={saveMarks}>
 
-                            <div className="col-md-6">
+                            <div className="mb-3">
 
                                 <label className="form-label">
-
-                                    Select Subject
-
+                                    Student
                                 </label>
 
                                 <select
-                                    className="form-select"
-                                    value={subject}
-                                    onChange={(e)=>setSubject(e.target.value)}
+                                    className="form-control"
+                                    value={selectedStudent}
+                                    onChange={(e) => setSelectedStudent(e.target.value)}
+                                    required
                                 >
+                                    <option value="">Select Student</option>
 
-                                    <option value="">Choose Subject</option>
-
-                                    <option>
-                                        Programming Logic & Design
-                                    </option>
-
-                                    <option>
-                                        C Programming
-                                    </option>
-
-                                    <option>
-                                        Java Programming
-                                    </option>
-
-                                    <option>
-                                        Database Management System
-                                    </option>
+                                    {students.map((student) => (
+                                        <option key={student.id} value={student.id}>
+                                            {student.fullname} ({student.roll_no})
+                                        </option>
+                                    ))}
 
                                 </select>
 
                             </div>
 
-                            <div className="col-md-6">
+                            <div className="mb-3">
 
                                 <label className="form-label">
-
-                                    Semester
-
+                                    Full Marks
                                 </label>
 
-                                <select
-                                    className="form-select"
-                                    value={semester}
-                                    onChange={(e)=>setSemester(e.target.value)}
-                                >
-
-                                    <option value="">Choose Semester</option>
-
-                                    <option>1st Semester</option>
-                                    <option>2nd Semester</option>
-                                    <option>3rd Semester</option>
-                                    <option>4th Semester</option>
-
-                                </select>
+                                <input
+                                    type="number"
+                                    className="form-control"
+                                    value={fullMarks}
+                                    onChange={(e) => setFullMarks(e.target.value)}
+                                    required
+                                />
 
                             </div>
 
-                        </div>
+                            <div className="mb-3">
 
-                        <table className="table table-bordered table-hover">
+                                <label className="form-label">
+                                    Obtained Marks
+                                </label>
 
-                            <thead className="table-dark">
+                                <input
+                                    type="number"
+                                    className="form-control"
+                                    value={obtainedMarks}
+                                    onChange={(e) => setObtainedMarks(e.target.value)}
+                                    required
+                                />
 
-                                <tr>
+                            </div>
 
-                                    <th>Roll</th>
+                            <button type="submit" className="btn btn-success">
+                                Save Marks
+                            </button>
 
-                                    <th>Student</th>
-
-                                    <th>Internal (40)</th>
-
-                                    <th>External (60)</th>
-
-                                </tr>
-
-                            </thead>
-
-                            <tbody>
-
-                                {
-
-                                    students.map((student,index)=>(
-
-                                        <tr key={student.id}>
-
-                                            <td>
-
-                                                {student.roll}
-
-                                            </td>
-
-                                            <td>
-
-                                                {student.name}
-
-                                            </td>
-
-                                            <td>
-
-                                                <input
-
-                                                    type="number"
-
-                                                    className="form-control"
-
-                                                    min="0"
-
-                                                    max="40"
-
-                                                    value={student.internal}
-
-                                                    onChange={(e)=>
-
-                                                        handleMarks(
-
-                                                            index,
-
-                                                            "internal",
-
-                                                            e.target.value
-
-                                                        )
-
-                                                    }
-
-                                                />
-
-                                            </td>
-
-                                            <td>
-
-                                                <input
-
-                                                    type="number"
-
-                                                    className="form-control"
-
-                                                    min="0"
-
-                                                    max="60"
-
-                                                    value={student.external}
-
-                                                    onChange={(e)=>
-
-                                                        handleMarks(
-
-                                                            index,
-
-                                                            "external",
-
-                                                            e.target.value
-
-                                                        )
-
-                                                    }
-
-                                                />
-
-                                            </td>
-
-                                        </tr>
-
-                                    ))
-
-                                }
-
-                            </tbody>
-
-                        </table>
-
-                        <button
-
-                            className="btn btn-success"
-
-                            onClick={saveMarks}
-
-                        >
-
-                            Save Marks
-
-                        </button>
+                        </form>
 
                     </div>
 
@@ -278,7 +143,6 @@ function AddMarks() {
         </DashboardLayout>
 
     );
-
 }
 
 export default AddMarks;

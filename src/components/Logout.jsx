@@ -21,7 +21,7 @@ function Logout() {
       className="btn btn-danger w-100 mt-3"
       onClick={handleLogout}
     >
-      🚪 Logout
+       Logout
     </button>
   );
 }
