@@ -3,18 +3,29 @@ from models import User
 from auth import hash_password
 
 
-db = SessionLocal()
+def create_admin():
+    db = SessionLocal()
 
-admin = User(
-    username="admin",
-    email="admin@arms.com",
-    password_hash=hash_password("admin123"),
-    role="admin"
-)
+    try:
+        existing_admin = db.query(User).filter(
+            User.email == "admin@arms.com"
+        ).first()
 
-db.add(admin)
-db.commit()
+        if existing_admin:
+            print("Admin already exists!")
+            return
 
-print("Admin created successfully!")
+        admin = User(
+            username="admin",
+            email="admin@arms.com",
+            password_hash=hash_password("arms@123"),
+            role="admin"
+        )
 
-db.close()
+        db.add(admin)
+        db.commit()
+
+        print("Admin created successfully!")
+
+    finally:
+        db.close()
