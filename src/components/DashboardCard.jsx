@@ -49,7 +49,7 @@ function DashboardCard({
                 <Link
                     to={link}
                     className="dashboard-card-link"
-                    aria-label={View ${title}}
+                    aria-label={`View ${title}`}
                 >
 
                     {cardContent}
