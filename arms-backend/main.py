@@ -26,11 +26,11 @@ app = FastAPI(
 
 # CORS
 origins = [
-    "https://arms-project-git-main-arms9.vercel.app",   
-    "http://localhost:5173",         
+    "https://arms-project-git-main-arms9.vercel.app", 
+    "http://localhost:5173",                           
 ]
 
-origin_regex = r"^https:\/\/your-app-[a-zA-Z0-9\-]+\.vercel\.app$"
+origin_regex = r"^https:\/\/arms-project-[a-zA-Z0-9\-]+-arms9\.vercel\.app$"gin_regex = r"^https:\/\/your-app-[a-zA-Z0-9\-]+\.vercel\.app$"
 
 app.add_middleware(
     CORSMiddleware,
