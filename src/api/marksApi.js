@@ -1,4 +1,5 @@
 import API from "./axios";
+
 export const getGradableStudents = () =>
     API.get("/students/gradable");
 

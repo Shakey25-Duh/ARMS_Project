@@ -34,8 +34,8 @@ import TeacherProfile from "./pages/TeacherProfile";
 
 /* ================= STUDENT ================= */
 
-import StudentDashboard from "./pages/StudentDashboard";
-import StudentProfile from "./pages/StudentProfile";
+import StudentDashboard from "./pages/studentdashboard";
+import StudentProfile from "./pages/Studentprofile";
 import StudentMarks from "./pages/StudentMarks";
 import StudentResult from "./pages/StudentResult";
 
