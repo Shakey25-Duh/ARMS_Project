@@ -1,4 +1,3 @@
 import API from "./axios";
 
-export const getMyTeacherProfile = () =>
-    API.get("/teachers/me");
+export const getMyTeacherProfile = () => API.get("/teachers/me");

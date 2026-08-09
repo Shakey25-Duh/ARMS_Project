@@ -1,168 +1,101 @@
 import { Link } from "react-router-dom";
 
 function Sidebar({ role = "admin" }) {
+  return (
+    <div className="sidebar">
+      <h3 className="text-center mb-4">
+        {role === "admin"
+          ? "ARMS Admin"
+          : role === "teacher"
+            ? "ARMS Teacher"
+            : "ARMS Student"}
+      </h3>
 
-    return (
+      {/* ================= ADMIN ================= */}
 
-        <div className="sidebar">
+      {role === "admin" && (
+        <>
+          <Link to="/admin-dashboard">Dashboard</Link>
 
-            <h3 className="text-center mb-4">
+          <hr />
 
-                {
-                    role === "admin"
-                        ? "ARMS Admin"
-                        : role === "teacher"
-                            ? "ARMS Teacher"
-                            : "ARMS Student"
-                }
+          <h6>Teacher</h6>
 
-            </h3>
+          <Link to="/add-teacher">Add Teacher</Link>
 
-            {/* ================= ADMIN ================= */}
+          <Link to="/manage-teachers">Manage Teachers</Link>
 
-            {
-                role === "admin" && (
+          <hr />
 
-                    <>
+          <h6>Subject</h6>
 
-                        <Link to="/admin-dashboard">
-                            Dashboard
-                        </Link>
+          <Link to="/add-subject">Add Subject</Link>
 
-                        <hr />
+          <Link to="/manage-subjects">Manage Subjects</Link>
 
-                        <h6>Teacher</h6>
+          <hr />
 
-                        <Link to="/add-teacher">
-                            Add Teacher
-                        </Link>
+          <h6>Department</h6>
 
-                        <Link to="/manage-teachers">
-                             Manage Teachers
-                        </Link>
+          <Link to="/add-department">Add Department</Link>
 
-                        <hr />
+          <Link to="/manage-departments">Manage Departments</Link>
 
-                        <h6>Subject</h6>
+          <hr />
 
-                        <Link to="/add-subject">
-                             Add Subject
-                        </Link>
+          <Link to="/reports">Reports</Link>
+        </>
+      )}
 
-                        <Link to="/manage-subjects">
-                             Manage Subjects
-                        </Link>
+      {/* ================= TEACHER ================= */}
 
-                        <hr />
+      {role === "teacher" && (
+        <>
+          <Link to="/teacher-dashboard">Dashboard</Link>
 
-                        <h6>Department</h6>
+          <h6>Students</h6>
 
-                        <Link to="/add-department">
-                             Add Department
-                        </Link>
+          <Link to="/add-student">Add Student</Link>
 
-                        <Link to="/manage-departments">
-                             Manage Departments
-                        </Link>
+          <Link to="/manage-students">Manage Students</Link>
 
-                        <hr />
+          <hr />
 
-                        <Link to="/reports">
-                             Reports
-                        </Link>
+          <h6>Marks</h6>
 
-                    </>
+          <Link to="/add-marks">Add Marks</Link>
 
-                )
-            }
+          <Link to="/manage-marks">Manage Marks</Link>
 
-            {/* ================= TEACHER ================= */}
+          <hr />
 
-            {
-                role === "teacher" && (
+          <h6>Profile</h6>
 
-                    <>
+          <Link to="/teacher-profile">My Profile</Link>
+        </>
+      )}
 
-                        <Link to="/teacher-dashboard">
-                             Dashboard
-                        </Link>
+      {/* ================= STUDENT ================= */}
 
-                        <h6>Students</h6>
+      {role === "student" && (
+        <>
+          <Link to="/student-dashboard">Dashboard</Link>
 
-                        <Link to="/add-student">
-                            Add Student
-                        </Link>
+          <hr />
 
-                        <Link to="/manage-students">
-                             Manage Students
-                        </Link>
+          <Link to="/student-profile">Profile</Link>
 
-                        <hr />
+          <Link to="/student-marks">Marks Obtained</Link>
 
-                        <h6>Marks</h6>
+          <hr />
 
-                        <Link to="/add-marks">
-                             Add Marks
-                        </Link>
+          <Link to="/student-result">Result</Link>
 
-                        <Link to="/manage-marks">
-                             Manage Marks
-                        </Link>
-
-                        <hr />
-
-                        <h6>Profile</h6>
-
-                        <Link to="/teacher-profile">
-                             My Profile
-                        </Link>
-
-                    </>
-
-                )
-            }
-
-            {/* ================= STUDENT ================= */}
-
-            {
-                role === "student" && (
-
-                    <>
-
-                        <Link to="/student-dashboard">
-                             Dashboard
-                        </Link>
-
-                        <hr />
-
-                        <Link to="/student-profile">
-                             Profile
-                        </Link>
-
-
-                        <Link to="/student-marks">
-                             Marks Obtained
-                        </Link>
-
-                        <hr />
-
-                        <Link to="/student-result">
-                            Result
-                        </Link>
-
-                        <hr />
-
-                       
-
-                    </>
-
-                )
-            }
-
-        </div>
-
-    );
-
+          <hr />
+        </>
+      )}
+    </div>
+  );
 }
 
 export default Sidebar;

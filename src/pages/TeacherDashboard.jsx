@@ -5,133 +5,99 @@ import { getMyTeacherProfile } from "../api/teacherSelfApi";
 import { getGradableStudents, getMyMarks } from "../api/marksApi";
 
 function TeacherDashboard() {
+  const [teacher, setTeacher] = useState(null);
+  const [totalStudents, setTotalStudents] = useState(0);
+  const [marksSubmitted, setMarksSubmitted] = useState(0);
 
-    const [teacher, setTeacher] = useState(null);
-    const [totalStudents, setTotalStudents] = useState(0);
-    const [marksSubmitted, setMarksSubmitted] = useState(0);
+  useEffect(() => {
+    loadData();
+  }, []);
 
-    useEffect(() => {
-        loadData();
-    }, []);
+  async function loadData() {
+    try {
+      const [teacherRes, studentsRes, marksRes] = await Promise.all([
+        getMyTeacherProfile(),
+        getGradableStudents(),
+        getMyMarks(),
+      ]);
 
-    async function loadData() {
-        try {
-            const [teacherRes, studentsRes, marksRes] = await Promise.all([
-                getMyTeacherProfile(),
-                getGradableStudents(),
-                getMyMarks()
-            ]);
-
-            setTeacher(teacherRes.data);
-            setTotalStudents(studentsRes.data.length);
-            setMarksSubmitted(marksRes.data.length);
-
-        } catch (error) {
-            console.log(error);
-        }
+      setTeacher(teacherRes.data);
+      setTotalStudents(studentsRes.data.length);
+      setMarksSubmitted(marksRes.data.length);
+    } catch (error) {
+      console.log(error);
     }
+  }
 
-    const pendingMarks = totalStudents - marksSubmitted;
+  const pendingMarks = totalStudents - marksSubmitted;
 
-    return (
+  return (
+    <DashboardLayout role="teacher" title="Teacher Dashboard">
+      <div className="container-fluid mt-4">
+        <h2 className="mb-4">
+          Welcome, {teacher ? teacher.fullname : "..."} !
+        </h2>
 
-        <DashboardLayout
-            role="teacher"
-            title="Teacher Dashboard"
-        >
+        {/* Dashboard Cards */}
 
-            <div className="container-fluid mt-4">
+        <div className="row">
+          <DashboardCard
+            title="Total Students"
+            value={totalStudents}
+            color="primary"
+          />
 
-                <h2 className="mb-4">
-                    Welcome, {teacher ? teacher.fullname : "..."} !
-                </h2>
+          <DashboardCard
+            title="Marks Submitted"
+            value={marksSubmitted}
+            color="success"
+          />
 
-                {/* Dashboard Cards */}
+          <DashboardCard
+            title="Pending Marks"
+            value={pendingMarks > 0 ? pendingMarks : 0}
+            color="danger"
+          />
 
-                <div className="row">
+          <DashboardCard
+            title="Credit Hour"
+            value={teacher ? teacher.credit_hour : "-"}
+            color="warning"
+          />
+        </div>
 
-                    <DashboardCard
-                        title="Total Students"
-                        value={totalStudents}
-                        color="primary"
-                    />
+        {/* My Subject */}
 
-                    <DashboardCard
-                        title="Marks Submitted"
-                        value={marksSubmitted}
-                        color="success"
-                    />
+        <div className="card shadow mt-3">
+          <div className="card-header bg-success text-white">
+            <h5 className="mb-0">My Subject</h5>
+          </div>
 
-                    <DashboardCard
-                        title="Pending Marks"
-                        value={pendingMarks > 0 ? pendingMarks : 0}
-                        color="danger"
-                    />
+          <div className="card-body">
+            <table className="table table-bordered table-hover">
+              <thead className="table-light">
+                <tr>
+                  <th>Semester</th>
+                  <th>Subject Name</th>
+                  <th>Department</th>
+                </tr>
+              </thead>
 
-                    <DashboardCard
-                        title="Credit Hour"
-                        value={teacher ? teacher.credit_hour : "-"}
-                        color="warning"
-                    />
-
-                </div>
-
-                {/* My Subject */}
-
-                <div className="card shadow mt-3">
-
-                    <div className="card-header bg-success text-white">
-
-                        <h5 className="mb-0">
-                            My Subject
-                        </h5>
-
-                    </div>
-
-                    <div className="card-body">
-
-                        <table className="table table-bordered table-hover">
-
-                            <thead className="table-light">
-
-                                <tr>
-
-                                    <th>Semester</th>
-                                    <th>Subject Name</th>
-                                    <th>Department</th>
-
-                                </tr>
-
-                            </thead>
-
-                            <tbody>
-
-                                {teacher && (
-
-                                    <tr>
-
-                                        <td>{teacher.semester}</td>
-                                        <td>{teacher.subject}</td>
-                                        <td>{teacher.department}</td>
-
-                                    </tr>
-
-                                )}
-
-                            </tbody>
-
-                        </table>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </DashboardLayout>
-
-    );
-
+              <tbody>
+                {teacher && (
+                  <tr>
+                    <td>{teacher.semester}</td>
+                    <td>{teacher.subject}</td>
+                    <td>{teacher.department}</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </DashboardLayout>
+  );
 }
 
 export default TeacherDashboard;
