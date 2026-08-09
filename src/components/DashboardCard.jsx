@@ -10,7 +10,7 @@ function DashboardCard({
     const cardContent = (
 
         <div
-            className={card shadow text-white bg-${color} dashboard-card}
+            className={`card shadow text-white bg-${color} dashboard-card`}
         >
 
             <div className="card-body text-center">
