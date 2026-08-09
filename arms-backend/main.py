@@ -3,6 +3,14 @@ from fastapi.middleware.cors import CORSMiddleware
 
 import models
 from database import engine
+from createadmin import create_admin
+
+models.Base.metadata.create_all(bind=engine)
+
+print("========== RUNNING ADMIN CREATION ==========")
+create_admin()
+print("========== ADMIN CREATION FINISHED ==========")
+
 
 from routers.teacher_self import router as teacher_self_router
 from routers.teacher import router as teacher_router
@@ -14,8 +22,6 @@ from routers.student import router as student_router
 from routers.marks import router as marks_router
 
 
-# Create tables
-models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title="ARMS Backend",
