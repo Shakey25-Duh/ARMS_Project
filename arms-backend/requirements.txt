@@ -1,9 +1,10 @@
-FastAPI
-Uvicorn
-SQLAlchemy
-PyMySQL
+fastapi
+uvicorn
+sqlalchemy
+pymysql
+cryptography
 python-dotenv
 python-jose
 passlib[bcrypt]
-Pydantic
-ReportLab
+pydantic
+reportlab
