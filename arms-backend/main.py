@@ -19,10 +19,7 @@ from routers.marks import router as marks_router
 
 
 
-app = FastAPI(
-    title="ARMS Backend",
-    version="1.0.0"
-)
+app = FastAPI()
 
 # CORS
 origins = [
